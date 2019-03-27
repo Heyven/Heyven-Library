@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="org.hrms.storage.DepartmentReadWrite" >
+  <resultMap id="BaseResultMap" type="org.hrms.domain.Department" >
+    <id column="id" property="id" jdbcType="INTEGER" />
+    <result column="departmentName" property="departmentName" jdbcType="VARCHAR" />
+    <result column="fixedNumber" property="fixedNumber" jdbcType="INTEGER" />
+    <result column="actualNumber" property="actualNumber" jdbcType="INTEGER" />
+    <result column="state" property="state" jdbcType="VARCHAR" />
+    <result column="createTime" property="createTime" jdbcType="BIGINT" />
+    <result column="updateTime" property="updateTime" jdbcType="BIGINT" />
+    <result column="creator" property="creator" jdbcType="VARCHAR" />
+  </resultMap>
+  <sql id="Base_Column_List" >
+    id, departmentName, fixedNumber, actualNumber, state, createTime, updateTime, creator
+  </sql>
+    <select id="selectByAttributes" resultMap="BaseResultMap" parameterType="org.hrms.common.search.Attribute" >
+    select <include refid="Base_Column_List" /> from department where ${name} = #{value}
+  </select>
+  <select id="pageingSearch" 
+  parameterType="org.hrms.common.search.Pageing" 
+  resultMap="BaseResultMap">
+  select * from department 
+  <where>
+  	<if test="keywords.value != null">
+  		departmentName like #{keywords.value}
+  	</if>
+  </where>
+  limit #{startIndex},#{pageSize}
+  </select>
+</mapper>

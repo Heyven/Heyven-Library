@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- defaultdir: 表示默认的装饰模板目录 -->
+<decorators defaultdir="/WEB-INF/jsp/template/">
+
+	<!-- 定义一个装饰器 -->
+    <decorator name="main" page="main.jsp">
+    	<!-- 定义需要装饰的路径匹配 -->  
+        <pattern>/*</pattern>  
+    </decorator>
+    
+    <!-- 定义不需要装饰的路径匹配-->   
+    <excludes>  
+        <pattern>/login</pattern>
+    </excludes>
+</decorators>

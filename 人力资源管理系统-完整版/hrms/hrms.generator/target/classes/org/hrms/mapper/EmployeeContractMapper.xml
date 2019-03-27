@@ -1,0 +1,177 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="org.hrms.mapper.EmployeeContractMapper" >
+  <resultMap id="BaseResultMap" type="org.hrms.domain.EmployeeContract" >
+    <id column="id" property="id" jdbcType="INTEGER" />
+    <result column="contractContent" property="contractContent" jdbcType="VARCHAR" />
+    <result column="contractNumber" property="contractNumber" jdbcType="VARCHAR" />
+    <result column="employeeId" property="employeeId" jdbcType="INTEGER" />
+    <result column="employeeName" property="employeeName" jdbcType="VARCHAR" />
+    <result column="contractStartTime" property="contractStartTime" jdbcType="BIGINT" />
+    <result column="contractEndTime" property="contractEndTime" jdbcType="BIGINT" />
+    <result column="contractRemarks" property="contractRemarks" jdbcType="VARCHAR" />
+    <result column="state" property="state" jdbcType="VARCHAR" />
+    <result column="createTime" property="createTime" jdbcType="BIGINT" />
+    <result column="updateTime" property="updateTime" jdbcType="BIGINT" />
+    <result column="creator" property="creator" jdbcType="VARCHAR" />
+  </resultMap>
+  <sql id="Base_Column_List" >
+    id, contractContent, contractNumber, employeeId, employeeName, contractStartTime, 
+    contractEndTime, contractRemarks, state, createTime, updateTime, creator
+  </sql>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
+    select 
+    <include refid="Base_Column_List" />
+    from employee_contract
+    where id = #{id,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
+    delete from employee_contract
+    where id = #{id,jdbcType=INTEGER}
+  </delete>
+  <insert id="insert" parameterType="org.hrms.domain.EmployeeContract" >
+    insert into employee_contract (id, contractContent, contractNumber, 
+      employeeId, employeeName, contractStartTime, 
+      contractEndTime, contractRemarks, state, 
+      createTime, updateTime, creator
+      )
+    values (#{id,jdbcType=INTEGER}, #{contractContent,jdbcType=VARCHAR}, #{contractNumber,jdbcType=VARCHAR}, 
+      #{employeeId,jdbcType=INTEGER}, #{employeeName,jdbcType=VARCHAR}, #{contractStartTime,jdbcType=BIGINT}, 
+      #{contractEndTime,jdbcType=BIGINT}, #{contractRemarks,jdbcType=VARCHAR}, #{state,jdbcType=VARCHAR}, 
+      #{createTime,jdbcType=BIGINT}, #{updateTime,jdbcType=BIGINT}, #{creator,jdbcType=VARCHAR}
+      )
+  </insert>
+  <insert id="insertSelective" parameterType="org.hrms.domain.EmployeeContract" >
+    insert into employee_contract
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        id,
+      </if>
+      <if test="contractContent != null" >
+        contractContent,
+      </if>
+      <if test="contractNumber != null" >
+        contractNumber,
+      </if>
+      <if test="employeeId != null" >
+        employeeId,
+      </if>
+      <if test="employeeName != null" >
+        employeeName,
+      </if>
+      <if test="contractStartTime != null" >
+        contractStartTime,
+      </if>
+      <if test="contractEndTime != null" >
+        contractEndTime,
+      </if>
+      <if test="contractRemarks != null" >
+        contractRemarks,
+      </if>
+      <if test="state != null" >
+        state,
+      </if>
+      <if test="createTime != null" >
+        createTime,
+      </if>
+      <if test="updateTime != null" >
+        updateTime,
+      </if>
+      <if test="creator != null" >
+        creator,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        #{id,jdbcType=INTEGER},
+      </if>
+      <if test="contractContent != null" >
+        #{contractContent,jdbcType=VARCHAR},
+      </if>
+      <if test="contractNumber != null" >
+        #{contractNumber,jdbcType=VARCHAR},
+      </if>
+      <if test="employeeId != null" >
+        #{employeeId,jdbcType=INTEGER},
+      </if>
+      <if test="employeeName != null" >
+        #{employeeName,jdbcType=VARCHAR},
+      </if>
+      <if test="contractStartTime != null" >
+        #{contractStartTime,jdbcType=BIGINT},
+      </if>
+      <if test="contractEndTime != null" >
+        #{contractEndTime,jdbcType=BIGINT},
+      </if>
+      <if test="contractRemarks != null" >
+        #{contractRemarks,jdbcType=VARCHAR},
+      </if>
+      <if test="state != null" >
+        #{state,jdbcType=VARCHAR},
+      </if>
+      <if test="createTime != null" >
+        #{createTime,jdbcType=BIGINT},
+      </if>
+      <if test="updateTime != null" >
+        #{updateTime,jdbcType=BIGINT},
+      </if>
+      <if test="creator != null" >
+        #{creator,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="org.hrms.domain.EmployeeContract" >
+    update employee_contract
+    <set >
+      <if test="contractContent != null" >
+        contractContent = #{contractContent,jdbcType=VARCHAR},
+      </if>
+      <if test="contractNumber != null" >
+        contractNumber = #{contractNumber,jdbcType=VARCHAR},
+      </if>
+      <if test="employeeId != null" >
+        employeeId = #{employeeId,jdbcType=INTEGER},
+      </if>
+      <if test="employeeName != null" >
+        employeeName = #{employeeName,jdbcType=VARCHAR},
+      </if>
+      <if test="contractStartTime != null" >
+        contractStartTime = #{contractStartTime,jdbcType=BIGINT},
+      </if>
+      <if test="contractEndTime != null" >
+        contractEndTime = #{contractEndTime,jdbcType=BIGINT},
+      </if>
+      <if test="contractRemarks != null" >
+        contractRemarks = #{contractRemarks,jdbcType=VARCHAR},
+      </if>
+      <if test="state != null" >
+        state = #{state,jdbcType=VARCHAR},
+      </if>
+      <if test="createTime != null" >
+        createTime = #{createTime,jdbcType=BIGINT},
+      </if>
+      <if test="updateTime != null" >
+        updateTime = #{updateTime,jdbcType=BIGINT},
+      </if>
+      <if test="creator != null" >
+        creator = #{creator,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="org.hrms.domain.EmployeeContract" >
+    update employee_contract
+    set contractContent = #{contractContent,jdbcType=VARCHAR},
+      contractNumber = #{contractNumber,jdbcType=VARCHAR},
+      employeeId = #{employeeId,jdbcType=INTEGER},
+      employeeName = #{employeeName,jdbcType=VARCHAR},
+      contractStartTime = #{contractStartTime,jdbcType=BIGINT},
+      contractEndTime = #{contractEndTime,jdbcType=BIGINT},
+      contractRemarks = #{contractRemarks,jdbcType=VARCHAR},
+      state = #{state,jdbcType=VARCHAR},
+      createTime = #{createTime,jdbcType=BIGINT},
+      updateTime = #{updateTime,jdbcType=BIGINT},
+      creator = #{creator,jdbcType=VARCHAR}
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+</mapper>

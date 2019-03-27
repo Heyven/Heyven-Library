@@ -1,0 +1,188 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="org.hrms.mapper.ApplyMapper" >
+  <resultMap id="BaseResultMap" type="org.hrms.domain.Apply" >
+    <id column="id" property="id" jdbcType="INTEGER" />
+    <result column="applyId" property="applyId" jdbcType="VARCHAR" />
+    <result column="applyName" property="applyName" jdbcType="VARCHAR" />
+    <result column="applySex" property="applySex" jdbcType="VARCHAR" />
+    <result column="applyBirthday" property="applyBirthday" jdbcType="BIGINT" />
+    <result column="applyPhone" property="applyPhone" jdbcType="VARCHAR" />
+    <result column="applyEmail" property="applyEmail" jdbcType="VARCHAR" />
+    <result column="applyDepartment" property="applyDepartment" jdbcType="VARCHAR" />
+    <result column="applyJob" property="applyJob" jdbcType="VARCHAR" />
+    <result column="state" property="state" jdbcType="VARCHAR" />
+    <result column="createTime" property="createTime" jdbcType="BIGINT" />
+    <result column="updateTime" property="updateTime" jdbcType="BIGINT" />
+    <result column="creator" property="creator" jdbcType="VARCHAR" />
+  </resultMap>
+  <sql id="Base_Column_List" >
+    id, applyId, applyName, applySex, applyBirthday, applyPhone, applyEmail, applyDepartment, 
+    applyJob, state, createTime, updateTime, creator
+  </sql>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
+    select 
+    <include refid="Base_Column_List" />
+    from apply
+    where id = #{id,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
+    delete from apply
+    where id = #{id,jdbcType=INTEGER}
+  </delete>
+  <insert id="insert" parameterType="org.hrms.domain.Apply" >
+    insert into apply (id, applyId, applyName, 
+      applySex, applyBirthday, applyPhone, 
+      applyEmail, applyDepartment, applyJob, 
+      state, createTime, updateTime, 
+      creator)
+    values (#{id,jdbcType=INTEGER}, #{applyId,jdbcType=VARCHAR}, #{applyName,jdbcType=VARCHAR}, 
+      #{applySex,jdbcType=VARCHAR}, #{applyBirthday,jdbcType=BIGINT}, #{applyPhone,jdbcType=VARCHAR}, 
+      #{applyEmail,jdbcType=VARCHAR}, #{applyDepartment,jdbcType=VARCHAR}, #{applyJob,jdbcType=VARCHAR}, 
+      #{state,jdbcType=VARCHAR}, #{createTime,jdbcType=BIGINT}, #{updateTime,jdbcType=BIGINT}, 
+      #{creator,jdbcType=VARCHAR})
+  </insert>
+  <insert id="insertSelective" parameterType="org.hrms.domain.Apply" >
+    insert into apply
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        id,
+      </if>
+      <if test="applyId != null" >
+        applyId,
+      </if>
+      <if test="applyName != null" >
+        applyName,
+      </if>
+      <if test="applySex != null" >
+        applySex,
+      </if>
+      <if test="applyBirthday != null" >
+        applyBirthday,
+      </if>
+      <if test="applyPhone != null" >
+        applyPhone,
+      </if>
+      <if test="applyEmail != null" >
+        applyEmail,
+      </if>
+      <if test="applyDepartment != null" >
+        applyDepartment,
+      </if>
+      <if test="applyJob != null" >
+        applyJob,
+      </if>
+      <if test="state != null" >
+        state,
+      </if>
+      <if test="createTime != null" >
+        createTime,
+      </if>
+      <if test="updateTime != null" >
+        updateTime,
+      </if>
+      <if test="creator != null" >
+        creator,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        #{id,jdbcType=INTEGER},
+      </if>
+      <if test="applyId != null" >
+        #{applyId,jdbcType=VARCHAR},
+      </if>
+      <if test="applyName != null" >
+        #{applyName,jdbcType=VARCHAR},
+      </if>
+      <if test="applySex != null" >
+        #{applySex,jdbcType=VARCHAR},
+      </if>
+      <if test="applyBirthday != null" >
+        #{applyBirthday,jdbcType=BIGINT},
+      </if>
+      <if test="applyPhone != null" >
+        #{applyPhone,jdbcType=VARCHAR},
+      </if>
+      <if test="applyEmail != null" >
+        #{applyEmail,jdbcType=VARCHAR},
+      </if>
+      <if test="applyDepartment != null" >
+        #{applyDepartment,jdbcType=VARCHAR},
+      </if>
+      <if test="applyJob != null" >
+        #{applyJob,jdbcType=VARCHAR},
+      </if>
+      <if test="state != null" >
+        #{state,jdbcType=VARCHAR},
+      </if>
+      <if test="createTime != null" >
+        #{createTime,jdbcType=BIGINT},
+      </if>
+      <if test="updateTime != null" >
+        #{updateTime,jdbcType=BIGINT},
+      </if>
+      <if test="creator != null" >
+        #{creator,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="org.hrms.domain.Apply" >
+    update apply
+    <set >
+      <if test="applyId != null" >
+        applyId = #{applyId,jdbcType=VARCHAR},
+      </if>
+      <if test="applyName != null" >
+        applyName = #{applyName,jdbcType=VARCHAR},
+      </if>
+      <if test="applySex != null" >
+        applySex = #{applySex,jdbcType=VARCHAR},
+      </if>
+      <if test="applyBirthday != null" >
+        applyBirthday = #{applyBirthday,jdbcType=BIGINT},
+      </if>
+      <if test="applyPhone != null" >
+        applyPhone = #{applyPhone,jdbcType=VARCHAR},
+      </if>
+      <if test="applyEmail != null" >
+        applyEmail = #{applyEmail,jdbcType=VARCHAR},
+      </if>
+      <if test="applyDepartment != null" >
+        applyDepartment = #{applyDepartment,jdbcType=VARCHAR},
+      </if>
+      <if test="applyJob != null" >
+        applyJob = #{applyJob,jdbcType=VARCHAR},
+      </if>
+      <if test="state != null" >
+        state = #{state,jdbcType=VARCHAR},
+      </if>
+      <if test="createTime != null" >
+        createTime = #{createTime,jdbcType=BIGINT},
+      </if>
+      <if test="updateTime != null" >
+        updateTime = #{updateTime,jdbcType=BIGINT},
+      </if>
+      <if test="creator != null" >
+        creator = #{creator,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="org.hrms.domain.Apply" >
+    update apply
+    set applyId = #{applyId,jdbcType=VARCHAR},
+      applyName = #{applyName,jdbcType=VARCHAR},
+      applySex = #{applySex,jdbcType=VARCHAR},
+      applyBirthday = #{applyBirthday,jdbcType=BIGINT},
+      applyPhone = #{applyPhone,jdbcType=VARCHAR},
+      applyEmail = #{applyEmail,jdbcType=VARCHAR},
+      applyDepartment = #{applyDepartment,jdbcType=VARCHAR},
+      applyJob = #{applyJob,jdbcType=VARCHAR},
+      state = #{state,jdbcType=VARCHAR},
+      createTime = #{createTime,jdbcType=BIGINT},
+      updateTime = #{updateTime,jdbcType=BIGINT},
+      creator = #{creator,jdbcType=VARCHAR}
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+</mapper>

@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE generatorConfiguration
+  PUBLIC "-//mybatis.org//DTD MyBatis Generator Configuration 1.0//EN"
+  "http://mybatis.org/dtd/mybatis-generator-config_1_0.dtd">
+
+<generatorConfiguration>
+	<context id="context1">
+		<!-- 指定生成的java文件的编码,没有直接生成到项目时中文可能会乱码 -->
+		<property name="javaFileEncoding" value="UTF-8" />
+		<!-- 这里的type里写的是你的实现类的类全路径 -->
+		<commentGenerator type="org.hrms.generator.GeneratorComment" />
+		<!-- mysql配置 -->
+		<jdbcConnection driverClass="com.mysql.jdbc.Driver"
+			connectionURL="jdbc:mysql://localhost:3306/hrms" userId="root"
+			password="root"></jdbcConnection>
+		<!-- 实体类配置 -->
+		<javaModelGenerator targetPackage="org.hrms.domain"
+			targetProject="E:\qyljy\work\java\java3\projects\HumanResourceManagementSystem\hrms\hrms.generator\src\main\java" />
+		<!-- Mapper配置 -->
+		<sqlMapGenerator targetPackage="org.hrms.mapper"
+			targetProject="E:\qyljy\work\java\java3\projects\HumanResourceManagementSystem\hrms\hrms.generator\src\main\java" />
+		<!-- SQL映射配置 -->
+		<javaClientGenerator targetPackage="org.hrms.mapper"
+			targetProject="E:\qyljy\work\java\java3\projects\HumanResourceManagementSystem\hrms\hrms.generator\src\main\java"
+			type="XMLMAPPER" />
+
+		<table schema="" tableName="recruitment" enableCountByExample="false"
+			enableUpdateByExample="false" enableDeleteByExample="false"
+			enableSelectByExample="false" selectByExampleQueryId="false">
+			<!-- 保持数据库字段与实体类字段一致 -->
+			<property name="useActualColumnNames" value="true" />
+		</table>
+	</context>
+</generatorConfiguration>

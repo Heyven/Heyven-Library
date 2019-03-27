@@ -1,0 +1,177 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="org.hrms.mapper.EmployeePayMapper" >
+  <resultMap id="BaseResultMap" type="org.hrms.domain.EmployeePay" >
+    <id column="id" property="id" jdbcType="INTEGER" />
+    <result column="employeeId" property="employeeId" jdbcType="INTEGER" />
+    <result column="employeeName" property="employeeName" jdbcType="VARCHAR" />
+    <result column="basePay" property="basePay" jdbcType="INTEGER" />
+    <result column="meritPay" property="meritPay" jdbcType="INTEGER" />
+    <result column="bonus" property="bonus" jdbcType="INTEGER" />
+    <result column="fine" property="fine" jdbcType="INTEGER" />
+    <result column="pay" property="pay" jdbcType="INTEGER" />
+    <result column="giveTime" property="giveTime" jdbcType="BIGINT" />
+    <result column="createTime" property="createTime" jdbcType="BIGINT" />
+    <result column="updateTime" property="updateTime" jdbcType="BIGINT" />
+    <result column="creator" property="creator" jdbcType="VARCHAR" />
+  </resultMap>
+  <sql id="Base_Column_List" >
+    id, employeeId, employeeName, basePay, meritPay, bonus, fine, pay, giveTime, createTime, 
+    updateTime, creator
+  </sql>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
+    select 
+    <include refid="Base_Column_List" />
+    from employee_pay
+    where id = #{id,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
+    delete from employee_pay
+    where id = #{id,jdbcType=INTEGER}
+  </delete>
+  <insert id="insert" parameterType="org.hrms.domain.EmployeePay" >
+    insert into employee_pay (id, employeeId, employeeName, 
+      basePay, meritPay, bonus, 
+      fine, pay, giveTime, 
+      createTime, updateTime, creator
+      )
+    values (#{id,jdbcType=INTEGER}, #{employeeId,jdbcType=INTEGER}, #{employeeName,jdbcType=VARCHAR}, 
+      #{basePay,jdbcType=INTEGER}, #{meritPay,jdbcType=INTEGER}, #{bonus,jdbcType=INTEGER}, 
+      #{fine,jdbcType=INTEGER}, #{pay,jdbcType=INTEGER}, #{giveTime,jdbcType=BIGINT}, 
+      #{createTime,jdbcType=BIGINT}, #{updateTime,jdbcType=BIGINT}, #{creator,jdbcType=VARCHAR}
+      )
+  </insert>
+  <insert id="insertSelective" parameterType="org.hrms.domain.EmployeePay" >
+    insert into employee_pay
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        id,
+      </if>
+      <if test="employeeId != null" >
+        employeeId,
+      </if>
+      <if test="employeeName != null" >
+        employeeName,
+      </if>
+      <if test="basePay != null" >
+        basePay,
+      </if>
+      <if test="meritPay != null" >
+        meritPay,
+      </if>
+      <if test="bonus != null" >
+        bonus,
+      </if>
+      <if test="fine != null" >
+        fine,
+      </if>
+      <if test="pay != null" >
+        pay,
+      </if>
+      <if test="giveTime != null" >
+        giveTime,
+      </if>
+      <if test="createTime != null" >
+        createTime,
+      </if>
+      <if test="updateTime != null" >
+        updateTime,
+      </if>
+      <if test="creator != null" >
+        creator,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        #{id,jdbcType=INTEGER},
+      </if>
+      <if test="employeeId != null" >
+        #{employeeId,jdbcType=INTEGER},
+      </if>
+      <if test="employeeName != null" >
+        #{employeeName,jdbcType=VARCHAR},
+      </if>
+      <if test="basePay != null" >
+        #{basePay,jdbcType=INTEGER},
+      </if>
+      <if test="meritPay != null" >
+        #{meritPay,jdbcType=INTEGER},
+      </if>
+      <if test="bonus != null" >
+        #{bonus,jdbcType=INTEGER},
+      </if>
+      <if test="fine != null" >
+        #{fine,jdbcType=INTEGER},
+      </if>
+      <if test="pay != null" >
+        #{pay,jdbcType=INTEGER},
+      </if>
+      <if test="giveTime != null" >
+        #{giveTime,jdbcType=BIGINT},
+      </if>
+      <if test="createTime != null" >
+        #{createTime,jdbcType=BIGINT},
+      </if>
+      <if test="updateTime != null" >
+        #{updateTime,jdbcType=BIGINT},
+      </if>
+      <if test="creator != null" >
+        #{creator,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="org.hrms.domain.EmployeePay" >
+    update employee_pay
+    <set >
+      <if test="employeeId != null" >
+        employeeId = #{employeeId,jdbcType=INTEGER},
+      </if>
+      <if test="employeeName != null" >
+        employeeName = #{employeeName,jdbcType=VARCHAR},
+      </if>
+      <if test="basePay != null" >
+        basePay = #{basePay,jdbcType=INTEGER},
+      </if>
+      <if test="meritPay != null" >
+        meritPay = #{meritPay,jdbcType=INTEGER},
+      </if>
+      <if test="bonus != null" >
+        bonus = #{bonus,jdbcType=INTEGER},
+      </if>
+      <if test="fine != null" >
+        fine = #{fine,jdbcType=INTEGER},
+      </if>
+      <if test="pay != null" >
+        pay = #{pay,jdbcType=INTEGER},
+      </if>
+      <if test="giveTime != null" >
+        giveTime = #{giveTime,jdbcType=BIGINT},
+      </if>
+      <if test="createTime != null" >
+        createTime = #{createTime,jdbcType=BIGINT},
+      </if>
+      <if test="updateTime != null" >
+        updateTime = #{updateTime,jdbcType=BIGINT},
+      </if>
+      <if test="creator != null" >
+        creator = #{creator,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="org.hrms.domain.EmployeePay" >
+    update employee_pay
+    set employeeId = #{employeeId,jdbcType=INTEGER},
+      employeeName = #{employeeName,jdbcType=VARCHAR},
+      basePay = #{basePay,jdbcType=INTEGER},
+      meritPay = #{meritPay,jdbcType=INTEGER},
+      bonus = #{bonus,jdbcType=INTEGER},
+      fine = #{fine,jdbcType=INTEGER},
+      pay = #{pay,jdbcType=INTEGER},
+      giveTime = #{giveTime,jdbcType=BIGINT},
+      createTime = #{createTime,jdbcType=BIGINT},
+      updateTime = #{updateTime,jdbcType=BIGINT},
+      creator = #{creator,jdbcType=VARCHAR}
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+</mapper>

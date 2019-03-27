@@ -1,0 +1,124 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" 
+	xmlns:context="http://www.springframework.org/schema/context"
+	xmlns:aop="http://www.springframework.org/schema/aop" 
+	xmlns:tx="http://www.springframework.org/schema/tx" 
+	xmlns:util="http://www.springframework.org/schema/util" 
+	xsi:schemaLocation="http://www.springframework.org/schema/beans
+    http://www.springframework.org/schema/beans/spring-beans-3.0.xsd 
+    http://www.springframework.org/schema/aop 
+    http://www.springframework.org/schema/aop/spring-aop-3.0.xsd 
+    http://www.springframework.org/schema/tx
+    http://www.springframework.org/schema/tx/spring-tx-3.1.xsd
+    http://www.springframework.org/schema/context
+	http://www.springframework.org/schema/context/spring-context-4.2.xsd
+	http://www.springframework.org/schema/util 
+	http://www.springframework.org/schema/util/spring-util.xsd">
+	
+	 <!-- 开启自动扫包 -->
+	 <context:component-scan base-package="org.hrms">
+	   <!--制定扫包规则，不扫描@Controller注解的JAVA类，其他的还是要扫描  -->
+	     <context:exclude-filter type="annotation" expression="org.springframework.stereotype.Controller"/>
+	 </context:component-scan>
+	
+	<!-- 启动AOP支持 -->
+	<aop:aspectj-autoproxy/>
+	
+	<!-- 引入外部数据源配置信息 -->
+	<bean class="org.springframework.beans.factory.config.PropertyPlaceholderConfigurer">
+		<property name="locations">
+			<value>classpath:db_config.properties</value>
+		</property>
+	</bean>
+	 
+	<util:properties id="application" location="classpath:application.properties"/>
+	
+	<!-- 配置数据源 -->
+	<bean id="dataSource" class="org.springframework.jdbc.datasource.DriverManagerDataSource">
+		<property name="driverClassName" value="${driverClass}"></property>
+		<property name="url" value="${url}"></property>
+		<property name="username" value="${username}"></property>
+		<property name="password" value="${password}"></property>
+	</bean>
+	
+	
+	<!-- 配置Session工厂 -->
+	<bean id="sqlSessionFactory" class="org.mybatis.spring.SqlSessionFactoryBean">
+		<property name="dataSource" ref="dataSource"></property>
+		<!-- 加载mybatis.cfg.xml文件 -->
+		<property name="configLocation" value="classpath:mybatis-cfg.xml"></property>
+		<!-- 自动扫描需要定义类别名的包，将包内的JAVA类的类名作为类别名 -->
+		<property name="typeAliasesPackage" value="org.hrms.domain"/>
+	</bean>
+	
+	<!-- 自动扫描所有的Mapper接口与文件 -->
+	<bean class="org.mybatis.spring.mapper.MapperScannerConfigurer">
+		<property name="basePackage" value="org.hrms.storage"/>
+	</bean>
+	
+	<!-- 配置事务管理器 -->
+	<bean id="txManager"
+		class="org.springframework.jdbc.datasource.DataSourceTransactionManager">
+		<property name="dataSource" ref="dataSource"/>
+	</bean>
+	
+    <!-- 定义个通知，指定事务管理器 -->
+	<tx:advice id="txAdvice" transaction-manager="txManager">
+		<tx:attributes>
+			<tx:method name="delete*" propagation="REQUIRED" read-only="false"
+				rollback-for="java.lang.Exception" />
+			<tx:method name="save*" propagation="REQUIRED" read-only="false"
+				rollback-for="java.lang.Exception" />
+			<tx:method name="insert*" propagation="REQUIRED" read-only="false"
+				rollback-for="java.lang.Exception" />
+			<tx:method name="update*" propagation="REQUIRED" read-only="false"
+				rollback-for="java.lang.Exception" />
+			<tx:method name="load*" propagation="SUPPORTS" read-only="true"/>
+			<tx:method name="find*" propagation="SUPPORTS" read-only="true"/>
+			<tx:method name="search*" propagation="SUPPORTS" read-only="true"/>
+			<tx:method name="select*" propagation="SUPPORTS" read-only="true"/>
+			<tx:method name="get*" propagation="SUPPORTS" read-only="true"/>
+		</tx:attributes>
+	</tx:advice>
+	
+	<aop:config>
+		<!-- 配置一个切入点 -->
+		<aop:pointcut id="serviceMethods" expression="execution(* org.hrms.service.*Service.*(..))" />
+		<aop:advisor advice-ref="txAdvice" pointcut-ref="serviceMethods" />
+	</aop:config>
+	
+	    <!-- 存储区域设置信息 -->
+    <bean id="localeResolver" class="org.springframework.web.servlet.i18n.SessionLocaleResolver" />
+    
+    <!-- 配置国际化资源文件 -->
+    <bean id="messageSource" class="org.springframework.context.support.ReloadableResourceBundleMessageSource">
+        <property name="basename" value="classpath:message" />
+    </bean>
+    
+	<!-- XML配置Quartz任务开始 -->
+	<!-- 定义任务 -->
+	<bean id="calculationBasicPayJob" class="org.hrms.job.CalculationBasicPayJob"/>
+
+	<!-- 定义任务详情 -->
+	<bean id="calculationBasicPayJobDetail" class="org.springframework.scheduling.quartz.MethodInvokingJobDetailFactoryBean">
+		<property name="targetObject" ref="calculationBasicPayJob" />
+		<property name="targetMethod" value="work" />
+	</bean>
+
+	<!-- 定义任务触发器,每30秒触发一次 -->
+	<bean id="calculationBasicPayJobTrigger" class="org.springframework.scheduling.quartz.CronTriggerFactoryBean">
+		<property name="jobDetail" ref="calculationBasicPayJobDetail" />
+		<property name="cronExpression" value="0 0/5 * * * ?" />
+	</bean>
+
+	<!-- 启动触发器 -->
+	<bean id="scheduler" class="org.springframework.scheduling.quartz.SchedulerFactoryBean">
+		<property name="triggers">
+			<list>
+				<ref bean="calculationBasicPayJobTrigger" />
+			</list>
+		</property>
+	</bean>
+	
+</beans>

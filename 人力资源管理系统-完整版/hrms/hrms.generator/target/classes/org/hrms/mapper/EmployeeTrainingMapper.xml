@@ -1,0 +1,210 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="org.hrms.mapper.EmployeeTrainingMapper" >
+  <resultMap id="BaseResultMap" type="org.hrms.domain.EmployeeTraining" >
+    <id column="id" property="id" jdbcType="INTEGER" />
+    <result column="employeeId" property="employeeId" jdbcType="INTEGER" />
+    <result column="employeeName" property="employeeName" jdbcType="VARCHAR" />
+    <result column="trainId" property="trainId" jdbcType="INTEGER" />
+    <result column="projectName" property="projectName" jdbcType="VARCHAR" />
+    <result column="trainingType" property="trainingType" jdbcType="VARCHAR" />
+    <result column="trainingStartTime" property="trainingStartTime" jdbcType="BIGINT" />
+    <result column="trainingEndTime" property="trainingEndTime" jdbcType="BIGINT" />
+    <result column="state" property="state" jdbcType="VARCHAR" />
+    <result column="createTime" property="createTime" jdbcType="BIGINT" />
+    <result column="updateTime" property="updateTime" jdbcType="BIGINT" />
+    <result column="creator" property="creator" jdbcType="VARCHAR" />
+  </resultMap>
+  <resultMap id="ResultMapWithBLOBs" type="org.hrms.domain.EmployeeTraining" extends="BaseResultMap" >
+    <result column="trainingResult" property="trainingResult" jdbcType="LONGVARCHAR" />
+  </resultMap>
+  <sql id="Base_Column_List" >
+    id, employeeId, employeeName, trainId, projectName, trainingType, trainingStartTime, 
+    trainingEndTime, state, createTime, updateTime, creator
+  </sql>
+  <sql id="Blob_Column_List" >
+    trainingResult
+  </sql>
+  <select id="selectByPrimaryKey" resultMap="ResultMapWithBLOBs" parameterType="java.lang.Integer" >
+    select 
+    <include refid="Base_Column_List" />
+    ,
+    <include refid="Blob_Column_List" />
+    from employee_training
+    where id = #{id,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
+    delete from employee_training
+    where id = #{id,jdbcType=INTEGER}
+  </delete>
+  <insert id="insert" parameterType="org.hrms.domain.EmployeeTraining" >
+    insert into employee_training (id, employeeId, employeeName, 
+      trainId, projectName, trainingType, 
+      trainingStartTime, trainingEndTime, state, 
+      createTime, updateTime, creator, 
+      trainingResult)
+    values (#{id,jdbcType=INTEGER}, #{employeeId,jdbcType=INTEGER}, #{employeeName,jdbcType=VARCHAR}, 
+      #{trainId,jdbcType=INTEGER}, #{projectName,jdbcType=VARCHAR}, #{trainingType,jdbcType=VARCHAR}, 
+      #{trainingStartTime,jdbcType=BIGINT}, #{trainingEndTime,jdbcType=BIGINT}, #{state,jdbcType=VARCHAR}, 
+      #{createTime,jdbcType=BIGINT}, #{updateTime,jdbcType=BIGINT}, #{creator,jdbcType=VARCHAR}, 
+      #{trainingResult,jdbcType=LONGVARCHAR})
+  </insert>
+  <insert id="insertSelective" parameterType="org.hrms.domain.EmployeeTraining" >
+    insert into employee_training
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        id,
+      </if>
+      <if test="employeeId != null" >
+        employeeId,
+      </if>
+      <if test="employeeName != null" >
+        employeeName,
+      </if>
+      <if test="trainId != null" >
+        trainId,
+      </if>
+      <if test="projectName != null" >
+        projectName,
+      </if>
+      <if test="trainingType != null" >
+        trainingType,
+      </if>
+      <if test="trainingStartTime != null" >
+        trainingStartTime,
+      </if>
+      <if test="trainingEndTime != null" >
+        trainingEndTime,
+      </if>
+      <if test="state != null" >
+        state,
+      </if>
+      <if test="createTime != null" >
+        createTime,
+      </if>
+      <if test="updateTime != null" >
+        updateTime,
+      </if>
+      <if test="creator != null" >
+        creator,
+      </if>
+      <if test="trainingResult != null" >
+        trainingResult,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        #{id,jdbcType=INTEGER},
+      </if>
+      <if test="employeeId != null" >
+        #{employeeId,jdbcType=INTEGER},
+      </if>
+      <if test="employeeName != null" >
+        #{employeeName,jdbcType=VARCHAR},
+      </if>
+      <if test="trainId != null" >
+        #{trainId,jdbcType=INTEGER},
+      </if>
+      <if test="projectName != null" >
+        #{projectName,jdbcType=VARCHAR},
+      </if>
+      <if test="trainingType != null" >
+        #{trainingType,jdbcType=VARCHAR},
+      </if>
+      <if test="trainingStartTime != null" >
+        #{trainingStartTime,jdbcType=BIGINT},
+      </if>
+      <if test="trainingEndTime != null" >
+        #{trainingEndTime,jdbcType=BIGINT},
+      </if>
+      <if test="state != null" >
+        #{state,jdbcType=VARCHAR},
+      </if>
+      <if test="createTime != null" >
+        #{createTime,jdbcType=BIGINT},
+      </if>
+      <if test="updateTime != null" >
+        #{updateTime,jdbcType=BIGINT},
+      </if>
+      <if test="creator != null" >
+        #{creator,jdbcType=VARCHAR},
+      </if>
+      <if test="trainingResult != null" >
+        #{trainingResult,jdbcType=LONGVARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="org.hrms.domain.EmployeeTraining" >
+    update employee_training
+    <set >
+      <if test="employeeId != null" >
+        employeeId = #{employeeId,jdbcType=INTEGER},
+      </if>
+      <if test="employeeName != null" >
+        employeeName = #{employeeName,jdbcType=VARCHAR},
+      </if>
+      <if test="trainId != null" >
+        trainId = #{trainId,jdbcType=INTEGER},
+      </if>
+      <if test="projectName != null" >
+        projectName = #{projectName,jdbcType=VARCHAR},
+      </if>
+      <if test="trainingType != null" >
+        trainingType = #{trainingType,jdbcType=VARCHAR},
+      </if>
+      <if test="trainingStartTime != null" >
+        trainingStartTime = #{trainingStartTime,jdbcType=BIGINT},
+      </if>
+      <if test="trainingEndTime != null" >
+        trainingEndTime = #{trainingEndTime,jdbcType=BIGINT},
+      </if>
+      <if test="state != null" >
+        state = #{state,jdbcType=VARCHAR},
+      </if>
+      <if test="createTime != null" >
+        createTime = #{createTime,jdbcType=BIGINT},
+      </if>
+      <if test="updateTime != null" >
+        updateTime = #{updateTime,jdbcType=BIGINT},
+      </if>
+      <if test="creator != null" >
+        creator = #{creator,jdbcType=VARCHAR},
+      </if>
+      <if test="trainingResult != null" >
+        trainingResult = #{trainingResult,jdbcType=LONGVARCHAR},
+      </if>
+    </set>
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKeyWithBLOBs" parameterType="org.hrms.domain.EmployeeTraining" >
+    update employee_training
+    set employeeId = #{employeeId,jdbcType=INTEGER},
+      employeeName = #{employeeName,jdbcType=VARCHAR},
+      trainId = #{trainId,jdbcType=INTEGER},
+      projectName = #{projectName,jdbcType=VARCHAR},
+      trainingType = #{trainingType,jdbcType=VARCHAR},
+      trainingStartTime = #{trainingStartTime,jdbcType=BIGINT},
+      trainingEndTime = #{trainingEndTime,jdbcType=BIGINT},
+      state = #{state,jdbcType=VARCHAR},
+      createTime = #{createTime,jdbcType=BIGINT},
+      updateTime = #{updateTime,jdbcType=BIGINT},
+      creator = #{creator,jdbcType=VARCHAR},
+      trainingResult = #{trainingResult,jdbcType=LONGVARCHAR}
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="org.hrms.domain.EmployeeTraining" >
+    update employee_training
+    set employeeId = #{employeeId,jdbcType=INTEGER},
+      employeeName = #{employeeName,jdbcType=VARCHAR},
+      trainId = #{trainId,jdbcType=INTEGER},
+      projectName = #{projectName,jdbcType=VARCHAR},
+      trainingType = #{trainingType,jdbcType=VARCHAR},
+      trainingStartTime = #{trainingStartTime,jdbcType=BIGINT},
+      trainingEndTime = #{trainingEndTime,jdbcType=BIGINT},
+      state = #{state,jdbcType=VARCHAR},
+      createTime = #{createTime,jdbcType=BIGINT},
+      updateTime = #{updateTime,jdbcType=BIGINT},
+      creator = #{creator,jdbcType=VARCHAR}
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+</mapper>

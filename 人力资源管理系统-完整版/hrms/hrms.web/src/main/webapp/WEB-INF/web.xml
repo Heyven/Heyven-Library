@@ -1,0 +1,121 @@
+<!DOCTYPE web-app PUBLIC
+ "-//Sun Microsystems, Inc.//DTD Web Application 2.3//EN"
+ "http://java.sun.com/dtd/web-app_2_3.dtd" >
+
+<web-app>
+  <display-name>Archetype Created Web Application</display-name>
+  
+  <!-- 配置静态资源使用默认servlet处理 -->
+  <servlet-mapping>
+  	<servlet-name>default</servlet-name>
+  	<url-pattern>*.css</url-pattern>
+  	<url-pattern>*.js</url-pattern>
+  	<url-pattern>*.jpg</url-pattern>
+  	<url-pattern>*.png</url-pattern>
+  	<url-pattern>*.gif</url-pattern>
+   </servlet-mapping>
+  
+  <!-- 配置spring编码过滤器 -->
+  <!-- encoding: 指定字符编码 -->
+  <!-- forceEncoding: 重写覆盖原有的字符编码 -->
+<!--   <filter>
+  	<filter-name>SpringCharacterEncodingFilter</filter-name>
+  	<filter-class>org.springframework.web.filter.CharacterEncodingFilter</filter-class>
+  	<init-param>
+  		<param-name>encoding</param-name>
+  		<param-value>UTF-8</param-value>
+  	</init-param>
+  	<init-param>
+  		<param-name>forceEncoding</param-name>
+  		<param-value>true</param-value>
+  	</init-param>
+  </filter>
+  <filter-mapping>
+  	<filter-name>SpringCharacterEncodingFilter</filter-name>
+  	<url-pattern>/*</url-pattern>
+  </filter-mapping> -->
+  
+  <!-- 自定义字符集编码过滤器 -->
+  <filter>
+    <filter-name>encodingFilter</filter-name>
+    <filter-class>org.hrms.web.filter.EncodingFilter</filter-class>
+    <init-param>
+      <param-name>charset</param-name>
+      <param-value>UTF-8</param-value>
+    </init-param>
+  </filter>
+  <filter-mapping>
+    <filter-name>encodingFilter</filter-name>
+    <url-pattern>/*</url-pattern>
+  </filter-mapping>
+  
+  <!-- 配置Spring上下文配置文件 -->
+    <context-param>
+		<param-name>contextConfigLocation</param-name>
+		<param-value>classpath:applicationContext.xml</param-value>
+	</context-param>
+  
+  <!-- 配置Spring MVC Servlet -->
+  <!-- 默认去WEB-INF目录下找  springmvc-servlet.xml配置文件-->
+  <servlet>
+  	<servlet-name>hrms</servlet-name>
+  	<servlet-class>org.springframework.web.servlet.DispatcherServlet</servlet-class>
+	<init-param>
+		<param-name>contextConfigLocation</param-name>
+		<param-value>classpath:hrms-servlet.xml</param-value>
+	</init-param>
+  </servlet>
+  <servlet-mapping>
+  	<servlet-name>hrms</servlet-name>
+  	<url-pattern>/</url-pattern>
+  </servlet-mapping>
+  
+	<!-- 报表Servlet配置 -->
+	<servlet>
+		<servlet-name>DisplayReport</servlet-name>
+		<servlet-class>org.jfree.chart.servlet.DisplayChart</servlet-class>
+	</servlet>
+	<servlet-mapping>
+		<servlet-name>DisplayReport</servlet-name>
+		<url-pattern>/report</url-pattern>
+	</servlet-mapping>
+  
+  <!-- 配置Sitemesh -->
+  <filter>
+  	<filter-name>sitemesh</filter-name>
+  	<filter-class>com.opensymphony.sitemesh.webapp.SiteMeshFilter</filter-class>
+  </filter>
+  <filter-mapping>
+  	<filter-name>sitemesh</filter-name>
+  	<url-pattern>/*</url-pattern>
+  </filter-mapping>
+  
+  <!-- 配置Spring上下文加载监听器 -->
+  <listener>
+        <listener-class>org.springframework.web.context.request.RequestContextListener</listener-class>
+ </listener>
+  <listener>
+  	<listener-class>org.springframework.web.context.ContextLoaderListener</listener-class>
+  </listener>
+  <listener>
+  	<listener-class>org.hrms.web.listener.SystemStartListener</listener-class>
+  </listener>
+  <welcome-file-list>
+  	<welcome-file>index.jsp</welcome-file>
+  </welcome-file-list>
+	<taglib>
+		<!-- 标签库访问路径 -->
+		<taglib-uri>/jt</taglib-uri>
+		<!-- 标签库文件路径 -->
+		<taglib-location>/WEB-INF/jt.tld</taglib-location>
+	</taglib>
+	
+	<error-page>
+		<error-code>404</error-code>
+		<location>/404.jsp</location>
+	</error-page>
+	<error-page>
+		<error-code>500</error-code>
+		<location>/500.jsp</location>
+	</error-page>
+</web-app>

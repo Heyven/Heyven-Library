@@ -1,0 +1,155 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="org.hrms.storage.AccountReadWrite" >
+  <resultMap id="BaseResultMap" type="org.hrms.domain.Account" >
+    <id column="id" property="id" jdbcType="INTEGER" />
+    <result column="account" property="account" jdbcType="VARCHAR" />
+    <result column="password" property="password" jdbcType="VARCHAR" />
+    <result column="head" property="head" jdbcType="LONGVARCHAR" />
+    <result column="createTime" property="createTime" jdbcType="BIGINT" />
+    <result column="updateTime" property="updateTime" jdbcType="BIGINT" />
+    <result column="state" property="state" jdbcType="VARCHAR" />
+    <result column="creator" property="creator" jdbcType="VARCHAR" />
+  </resultMap>
+  <sql id="Base_Column_List" >
+    id, account, head, password, createTime, updateTime, state, creator
+  </sql>
+  <insert id="insert" parameterType="org.hrms.domain.Account" useGeneratedKeys="true" keyProperty="id">
+    insert into account
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="account != null" >
+        account,
+      </if>
+      <if test="password != null" >
+        password,
+      </if>
+      <if test="createTime != null" >
+        createTime,
+      </if>
+      <if test="updateTime != null" >
+        updateTime,
+      </if>
+      <if test="state != null" >
+        state,
+      </if>
+      <if test="creator != null" >
+        creator,
+      </if>
+      <if test="head != null" >
+        head,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="account != null" >
+        #{account,jdbcType=VARCHAR},
+      </if>
+      <if test="password != null" >
+        #{password,jdbcType=VARCHAR},
+      </if>
+      <if test="createTime != null" >
+        #{createTime,jdbcType=BIGINT},
+      </if>
+      <if test="updateTime != null" >
+        #{updateTime,jdbcType=BIGINT},
+      </if>
+      <if test="state != null" >
+        #{state,jdbcType=VARCHAR},
+      </if>
+      <if test="creator != null" >
+        #{creator,jdbcType=VARCHAR},
+      </if>
+      <if test="head != null" >
+        #{head,jdbcType=LONGVARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <insert id="batchInsert" useGeneratedKeys="true" keyProperty="id">
+		insert into account (account, password,createTime, updateTime, state,creator, head)
+    	values
+		<foreach collection="list" item="item" separator=",">
+		(#{item.account,jdbcType=VARCHAR}, #{item.password,jdbcType=VARCHAR}, 
+      #{item.createTime,jdbcType=BIGINT}, #{item.updateTime,jdbcType=BIGINT}, #{item.state,jdbcType=VARCHAR}, 
+      #{item.creator,jdbcType=VARCHAR}, #{item.head,jdbcType=LONGVARCHAR})
+		</foreach>
+  </insert>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
+    delete from account where id = #{id,jdbcType=INTEGER}
+  </delete>
+  <delete id="deleteInByPrimaryKey">
+  	delete from account where id in (
+  	<foreach collection="list" item="item" separator=",">
+  	#{item}
+  	</foreach>
+  	)
+  </delete>
+  <delete id="deleteByAttribute" parameterType="org.hrms.common.search.Attribute" >
+    delete from account where ${name} = #{value}
+  </delete>
+  <update id="updateByPrimaryKey" parameterType="org.hrms.domain.Account" >
+    update account
+    <set >
+      <if test="account != null" >
+        account = #{account,jdbcType=VARCHAR},
+      </if>
+      <if test="password != null" >
+        password = #{password,jdbcType=VARCHAR},
+      </if>
+      <if test="createTime != null" >
+        createTime = #{createTime,jdbcType=BIGINT},
+      </if>
+      <if test="updateTime != null" >
+        updateTime = #{updateTime,jdbcType=BIGINT},
+      </if>
+      <if test="state != null" >
+        state = #{state,jdbcType=VARCHAR},
+      </if>
+      <if test="creator != null" >
+        creator = #{creator,jdbcType=VARCHAR},
+      </if>
+      <if test="head != null" >
+        head = #{head,jdbcType=LONGVARCHAR},
+      </if>
+    </set>
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
+    select 
+    <include refid="Base_Column_List" />
+    from account
+    where id = #{id,jdbcType=INTEGER}
+  </select>
+  <select id="countByAttribute" resultType="java.lang.Integer" parameterType="org.hrms.common.search.Attribute" >
+    select count(id) from account
+      <where>
+	  	<if test="value != null">
+	  		${name} 
+	  		<choose>
+	  			<when test="likePattern == true">
+	  				like
+	  			</when>
+	  			<otherwise>
+	  			=
+	  			</otherwise>
+	  		</choose>
+	  		  #{value}
+	  	</if>
+	  </where>
+  </select>
+  <select id="selectByAttribute" resultMap="BaseResultMap" parameterType="org.hrms.common.search.Attribute" >
+    select <include refid="Base_Column_List" /> from account where ${name} = #{value}
+  </select>
+  <select id="selectByAttributes" resultMap="BaseResultMap" parameterType="org.hrms.common.search.Attribute" >
+    select <include refid="Base_Column_List" /> from account where ${name} = #{value}
+  </select>
+  <select id="pageingSearch" 
+  parameterType="org.hrms.common.search.Pageing" 
+  resultMap="BaseResultMap">
+  select * from account 
+  <where>
+  	<if test="keywords.value != null">
+  		account like #{keywords.value}
+  	</if>
+  </where>
+  limit #{startIndex},#{pageSize}
+  </select>
+</mapper>

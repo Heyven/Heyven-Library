@@ -1,0 +1,210 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="org.hrms.mapper.EmployeeTransferMapper" >
+  <resultMap id="BaseResultMap" type="org.hrms.domain.EmployeeTransfer" >
+    <id column="id" property="id" jdbcType="INTEGER" />
+    <result column="employeeId" property="employeeId" jdbcType="INTEGER" />
+    <result column="employeeName" property="employeeName" jdbcType="VARCHAR" />
+    <result column="originalDepartment" property="originalDepartment" jdbcType="VARCHAR" />
+    <result column="originalJob" property="originalJob" jdbcType="VARCHAR" />
+    <result column="newDepartment" property="newDepartment" jdbcType="VARCHAR" />
+    <result column="newJob" property="newJob" jdbcType="VARCHAR" />
+    <result column="transferTime" property="transferTime" jdbcType="BIGINT" />
+    <result column="state" property="state" jdbcType="VARCHAR" />
+    <result column="createTime" property="createTime" jdbcType="BIGINT" />
+    <result column="updateTime" property="updateTime" jdbcType="BIGINT" />
+    <result column="creator" property="creator" jdbcType="VARCHAR" />
+  </resultMap>
+  <resultMap id="ResultMapWithBLOBs" type="org.hrms.domain.EmployeeTransfer" extends="BaseResultMap" >
+    <result column="transferCause" property="transferCause" jdbcType="LONGVARCHAR" />
+  </resultMap>
+  <sql id="Base_Column_List" >
+    id, employeeId, employeeName, originalDepartment, originalJob, newDepartment, newJob, 
+    transferTime, state, createTime, updateTime, creator
+  </sql>
+  <sql id="Blob_Column_List" >
+    transferCause
+  </sql>
+  <select id="selectByPrimaryKey" resultMap="ResultMapWithBLOBs" parameterType="java.lang.Integer" >
+    select 
+    <include refid="Base_Column_List" />
+    ,
+    <include refid="Blob_Column_List" />
+    from employee_transfer
+    where id = #{id,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
+    delete from employee_transfer
+    where id = #{id,jdbcType=INTEGER}
+  </delete>
+  <insert id="insert" parameterType="org.hrms.domain.EmployeeTransfer" >
+    insert into employee_transfer (id, employeeId, employeeName, 
+      originalDepartment, originalJob, newDepartment, 
+      newJob, transferTime, state, 
+      createTime, updateTime, creator, 
+      transferCause)
+    values (#{id,jdbcType=INTEGER}, #{employeeId,jdbcType=INTEGER}, #{employeeName,jdbcType=VARCHAR}, 
+      #{originalDepartment,jdbcType=VARCHAR}, #{originalJob,jdbcType=VARCHAR}, #{newDepartment,jdbcType=VARCHAR}, 
+      #{newJob,jdbcType=VARCHAR}, #{transferTime,jdbcType=BIGINT}, #{state,jdbcType=VARCHAR}, 
+      #{createTime,jdbcType=BIGINT}, #{updateTime,jdbcType=BIGINT}, #{creator,jdbcType=VARCHAR}, 
+      #{transferCause,jdbcType=LONGVARCHAR})
+  </insert>
+  <insert id="insertSelective" parameterType="org.hrms.domain.EmployeeTransfer" >
+    insert into employee_transfer
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        id,
+      </if>
+      <if test="employeeId != null" >
+        employeeId,
+      </if>
+      <if test="employeeName != null" >
+        employeeName,
+      </if>
+      <if test="originalDepartment != null" >
+        originalDepartment,
+      </if>
+      <if test="originalJob != null" >
+        originalJob,
+      </if>
+      <if test="newDepartment != null" >
+        newDepartment,
+      </if>
+      <if test="newJob != null" >
+        newJob,
+      </if>
+      <if test="transferTime != null" >
+        transferTime,
+      </if>
+      <if test="state != null" >
+        state,
+      </if>
+      <if test="createTime != null" >
+        createTime,
+      </if>
+      <if test="updateTime != null" >
+        updateTime,
+      </if>
+      <if test="creator != null" >
+        creator,
+      </if>
+      <if test="transferCause != null" >
+        transferCause,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        #{id,jdbcType=INTEGER},
+      </if>
+      <if test="employeeId != null" >
+        #{employeeId,jdbcType=INTEGER},
+      </if>
+      <if test="employeeName != null" >
+        #{employeeName,jdbcType=VARCHAR},
+      </if>
+      <if test="originalDepartment != null" >
+        #{originalDepartment,jdbcType=VARCHAR},
+      </if>
+      <if test="originalJob != null" >
+        #{originalJob,jdbcType=VARCHAR},
+      </if>
+      <if test="newDepartment != null" >
+        #{newDepartment,jdbcType=VARCHAR},
+      </if>
+      <if test="newJob != null" >
+        #{newJob,jdbcType=VARCHAR},
+      </if>
+      <if test="transferTime != null" >
+        #{transferTime,jdbcType=BIGINT},
+      </if>
+      <if test="state != null" >
+        #{state,jdbcType=VARCHAR},
+      </if>
+      <if test="createTime != null" >
+        #{createTime,jdbcType=BIGINT},
+      </if>
+      <if test="updateTime != null" >
+        #{updateTime,jdbcType=BIGINT},
+      </if>
+      <if test="creator != null" >
+        #{creator,jdbcType=VARCHAR},
+      </if>
+      <if test="transferCause != null" >
+        #{transferCause,jdbcType=LONGVARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="org.hrms.domain.EmployeeTransfer" >
+    update employee_transfer
+    <set >
+      <if test="employeeId != null" >
+        employeeId = #{employeeId,jdbcType=INTEGER},
+      </if>
+      <if test="employeeName != null" >
+        employeeName = #{employeeName,jdbcType=VARCHAR},
+      </if>
+      <if test="originalDepartment != null" >
+        originalDepartment = #{originalDepartment,jdbcType=VARCHAR},
+      </if>
+      <if test="originalJob != null" >
+        originalJob = #{originalJob,jdbcType=VARCHAR},
+      </if>
+      <if test="newDepartment != null" >
+        newDepartment = #{newDepartment,jdbcType=VARCHAR},
+      </if>
+      <if test="newJob != null" >
+        newJob = #{newJob,jdbcType=VARCHAR},
+      </if>
+      <if test="transferTime != null" >
+        transferTime = #{transferTime,jdbcType=BIGINT},
+      </if>
+      <if test="state != null" >
+        state = #{state,jdbcType=VARCHAR},
+      </if>
+      <if test="createTime != null" >
+        createTime = #{createTime,jdbcType=BIGINT},
+      </if>
+      <if test="updateTime != null" >
+        updateTime = #{updateTime,jdbcType=BIGINT},
+      </if>
+      <if test="creator != null" >
+        creator = #{creator,jdbcType=VARCHAR},
+      </if>
+      <if test="transferCause != null" >
+        transferCause = #{transferCause,jdbcType=LONGVARCHAR},
+      </if>
+    </set>
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKeyWithBLOBs" parameterType="org.hrms.domain.EmployeeTransfer" >
+    update employee_transfer
+    set employeeId = #{employeeId,jdbcType=INTEGER},
+      employeeName = #{employeeName,jdbcType=VARCHAR},
+      originalDepartment = #{originalDepartment,jdbcType=VARCHAR},
+      originalJob = #{originalJob,jdbcType=VARCHAR},
+      newDepartment = #{newDepartment,jdbcType=VARCHAR},
+      newJob = #{newJob,jdbcType=VARCHAR},
+      transferTime = #{transferTime,jdbcType=BIGINT},
+      state = #{state,jdbcType=VARCHAR},
+      createTime = #{createTime,jdbcType=BIGINT},
+      updateTime = #{updateTime,jdbcType=BIGINT},
+      creator = #{creator,jdbcType=VARCHAR},
+      transferCause = #{transferCause,jdbcType=LONGVARCHAR}
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="org.hrms.domain.EmployeeTransfer" >
+    update employee_transfer
+    set employeeId = #{employeeId,jdbcType=INTEGER},
+      employeeName = #{employeeName,jdbcType=VARCHAR},
+      originalDepartment = #{originalDepartment,jdbcType=VARCHAR},
+      originalJob = #{originalJob,jdbcType=VARCHAR},
+      newDepartment = #{newDepartment,jdbcType=VARCHAR},
+      newJob = #{newJob,jdbcType=VARCHAR},
+      transferTime = #{transferTime,jdbcType=BIGINT},
+      state = #{state,jdbcType=VARCHAR},
+      createTime = #{createTime,jdbcType=BIGINT},
+      updateTime = #{updateTime,jdbcType=BIGINT},
+      creator = #{creator,jdbcType=VARCHAR}
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+</mapper>

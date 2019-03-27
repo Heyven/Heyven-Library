@@ -1,0 +1,235 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="org.hrms.mapper.EmployeeMapper" >
+  <resultMap id="BaseResultMap" type="org.hrms.domain.Employee" >
+    <id column="id" property="id" jdbcType="INTEGER" />
+    <result column="employeeName" property="employeeName" jdbcType="VARCHAR" />
+    <result column="employeeNumber" property="employeeNumber" jdbcType="VARCHAR" />
+    <result column="employeePhoto" property="employeePhoto" jdbcType="VARCHAR" />
+    <result column="employeeSex" property="employeeSex" jdbcType="VARCHAR" />
+    <result column="employeeBirthday" property="employeeBirthday" jdbcType="BIGINT" />
+    <result column="employeePhone" property="employeePhone" jdbcType="VARCHAR" />
+    <result column="employeeEmail" property="employeeEmail" jdbcType="VARCHAR" />
+    <result column="employeeEducation" property="employeeEducation" jdbcType="VARCHAR" />
+    <result column="departmentName" property="departmentName" jdbcType="VARCHAR" />
+    <result column="employeeJob" property="employeeJob" jdbcType="VARCHAR" />
+    <result column="gradeGrade" property="gradeGrade" jdbcType="VARCHAR" />
+    <result column="inductionTime" property="inductionTime" jdbcType="BIGINT" />
+    <result column="state" property="state" jdbcType="VARCHAR" />
+    <result column="createTime" property="createTime" jdbcType="BIGINT" />
+    <result column="updateTime" property="updateTime" jdbcType="BIGINT" />
+    <result column="creator" property="creator" jdbcType="VARCHAR" />
+  </resultMap>
+  <sql id="Base_Column_List" >
+    id, employeeName, employeeNumber, employeePhoto, employeeSex, employeeBirthday, employeePhone, 
+    employeeEmail, employeeEducation, departmentName, employeeJob, gradeGrade, inductionTime, 
+    state, createTime, updateTime, creator
+  </sql>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
+    select 
+    <include refid="Base_Column_List" />
+    from employee
+    where id = #{id,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
+    delete from employee
+    where id = #{id,jdbcType=INTEGER}
+  </delete>
+  <insert id="insert" parameterType="org.hrms.domain.Employee" >
+    insert into employee (id, employeeName, employeeNumber, 
+      employeePhoto, employeeSex, employeeBirthday, 
+      employeePhone, employeeEmail, employeeEducation, 
+      departmentName, employeeJob, gradeGrade, 
+      inductionTime, state, createTime, 
+      updateTime, creator)
+    values (#{id,jdbcType=INTEGER}, #{employeeName,jdbcType=VARCHAR}, #{employeeNumber,jdbcType=VARCHAR}, 
+      #{employeePhoto,jdbcType=VARCHAR}, #{employeeSex,jdbcType=VARCHAR}, #{employeeBirthday,jdbcType=BIGINT}, 
+      #{employeePhone,jdbcType=VARCHAR}, #{employeeEmail,jdbcType=VARCHAR}, #{employeeEducation,jdbcType=VARCHAR}, 
+      #{departmentName,jdbcType=VARCHAR}, #{employeeJob,jdbcType=VARCHAR}, #{gradeGrade,jdbcType=VARCHAR}, 
+      #{inductionTime,jdbcType=BIGINT}, #{state,jdbcType=VARCHAR}, #{createTime,jdbcType=BIGINT}, 
+      #{updateTime,jdbcType=BIGINT}, #{creator,jdbcType=VARCHAR})
+  </insert>
+  <insert id="insertSelective" parameterType="org.hrms.domain.Employee" >
+    insert into employee
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        id,
+      </if>
+      <if test="employeeName != null" >
+        employeeName,
+      </if>
+      <if test="employeeNumber != null" >
+        employeeNumber,
+      </if>
+      <if test="employeePhoto != null" >
+        employeePhoto,
+      </if>
+      <if test="employeeSex != null" >
+        employeeSex,
+      </if>
+      <if test="employeeBirthday != null" >
+        employeeBirthday,
+      </if>
+      <if test="employeePhone != null" >
+        employeePhone,
+      </if>
+      <if test="employeeEmail != null" >
+        employeeEmail,
+      </if>
+      <if test="employeeEducation != null" >
+        employeeEducation,
+      </if>
+      <if test="departmentName != null" >
+        departmentName,
+      </if>
+      <if test="employeeJob != null" >
+        employeeJob,
+      </if>
+      <if test="gradeGrade != null" >
+        gradeGrade,
+      </if>
+      <if test="inductionTime != null" >
+        inductionTime,
+      </if>
+      <if test="state != null" >
+        state,
+      </if>
+      <if test="createTime != null" >
+        createTime,
+      </if>
+      <if test="updateTime != null" >
+        updateTime,
+      </if>
+      <if test="creator != null" >
+        creator,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        #{id,jdbcType=INTEGER},
+      </if>
+      <if test="employeeName != null" >
+        #{employeeName,jdbcType=VARCHAR},
+      </if>
+      <if test="employeeNumber != null" >
+        #{employeeNumber,jdbcType=VARCHAR},
+      </if>
+      <if test="employeePhoto != null" >
+        #{employeePhoto,jdbcType=VARCHAR},
+      </if>
+      <if test="employeeSex != null" >
+        #{employeeSex,jdbcType=VARCHAR},
+      </if>
+      <if test="employeeBirthday != null" >
+        #{employeeBirthday,jdbcType=BIGINT},
+      </if>
+      <if test="employeePhone != null" >
+        #{employeePhone,jdbcType=VARCHAR},
+      </if>
+      <if test="employeeEmail != null" >
+        #{employeeEmail,jdbcType=VARCHAR},
+      </if>
+      <if test="employeeEducation != null" >
+        #{employeeEducation,jdbcType=VARCHAR},
+      </if>
+      <if test="departmentName != null" >
+        #{departmentName,jdbcType=VARCHAR},
+      </if>
+      <if test="employeeJob != null" >
+        #{employeeJob,jdbcType=VARCHAR},
+      </if>
+      <if test="gradeGrade != null" >
+        #{gradeGrade,jdbcType=VARCHAR},
+      </if>
+      <if test="inductionTime != null" >
+        #{inductionTime,jdbcType=BIGINT},
+      </if>
+      <if test="state != null" >
+        #{state,jdbcType=VARCHAR},
+      </if>
+      <if test="createTime != null" >
+        #{createTime,jdbcType=BIGINT},
+      </if>
+      <if test="updateTime != null" >
+        #{updateTime,jdbcType=BIGINT},
+      </if>
+      <if test="creator != null" >
+        #{creator,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="org.hrms.domain.Employee" >
+    update employee
+    <set >
+      <if test="employeeName != null" >
+        employeeName = #{employeeName,jdbcType=VARCHAR},
+      </if>
+      <if test="employeeNumber != null" >
+        employeeNumber = #{employeeNumber,jdbcType=VARCHAR},
+      </if>
+      <if test="employeePhoto != null" >
+        employeePhoto = #{employeePhoto,jdbcType=VARCHAR},
+      </if>
+      <if test="employeeSex != null" >
+        employeeSex = #{employeeSex,jdbcType=VARCHAR},
+      </if>
+      <if test="employeeBirthday != null" >
+        employeeBirthday = #{employeeBirthday,jdbcType=BIGINT},
+      </if>
+      <if test="employeePhone != null" >
+        employeePhone = #{employeePhone,jdbcType=VARCHAR},
+      </if>
+      <if test="employeeEmail != null" >
+        employeeEmail = #{employeeEmail,jdbcType=VARCHAR},
+      </if>
+      <if test="employeeEducation != null" >
+        employeeEducation = #{employeeEducation,jdbcType=VARCHAR},
+      </if>
+      <if test="departmentName != null" >
+        departmentName = #{departmentName,jdbcType=VARCHAR},
+      </if>
+      <if test="employeeJob != null" >
+        employeeJob = #{employeeJob,jdbcType=VARCHAR},
+      </if>
+      <if test="gradeGrade != null" >
+        gradeGrade = #{gradeGrade,jdbcType=VARCHAR},
+      </if>
+      <if test="inductionTime != null" >
+        inductionTime = #{inductionTime,jdbcType=BIGINT},
+      </if>
+      <if test="state != null" >
+        state = #{state,jdbcType=VARCHAR},
+      </if>
+      <if test="createTime != null" >
+        createTime = #{createTime,jdbcType=BIGINT},
+      </if>
+      <if test="updateTime != null" >
+        updateTime = #{updateTime,jdbcType=BIGINT},
+      </if>
+      <if test="creator != null" >
+        creator = #{creator,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="org.hrms.domain.Employee" >
+    update employee
+    set employeeName = #{employeeName,jdbcType=VARCHAR},
+      employeeNumber = #{employeeNumber,jdbcType=VARCHAR},
+      employeePhoto = #{employeePhoto,jdbcType=VARCHAR},
+      employeeSex = #{employeeSex,jdbcType=VARCHAR},
+      employeeBirthday = #{employeeBirthday,jdbcType=BIGINT},
+      employeePhone = #{employeePhone,jdbcType=VARCHAR},
+      employeeEmail = #{employeeEmail,jdbcType=VARCHAR},
+      employeeEducation = #{employeeEducation,jdbcType=VARCHAR},
+      departmentName = #{departmentName,jdbcType=VARCHAR},
+      employeeJob = #{employeeJob,jdbcType=VARCHAR},
+      gradeGrade = #{gradeGrade,jdbcType=VARCHAR},
+      inductionTime = #{inductionTime,jdbcType=BIGINT},
+      state = #{state,jdbcType=VARCHAR},
+      createTime = #{createTime,jdbcType=BIGINT},
+      updateTime = #{updateTime,jdbcType=BIGINT},
+      creator = #{creator,jdbcType=VARCHAR}
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+</mapper>

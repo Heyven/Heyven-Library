@@ -1,0 +1,210 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="org.hrms.mapper.EmployeeAttendanceMapper" >
+  <resultMap id="BaseResultMap" type="org.hrms.domain.EmployeeAttendance" >
+    <id column="id" property="id" jdbcType="INTEGER" />
+    <result column="attendanceNumber" property="attendanceNumber" jdbcType="VARCHAR" />
+    <result column="departmentName" property="departmentName" jdbcType="VARCHAR" />
+    <result column="employeeName" property="employeeName" jdbcType="VARCHAR" />
+    <result column="attendanceType" property="attendanceType" jdbcType="VARCHAR" />
+    <result column="attendanceStartTime" property="attendanceStartTime" jdbcType="BIGINT" />
+    <result column="attendanceEndTime" property="attendanceEndTime" jdbcType="BIGINT" />
+    <result column="sanctionMoney" property="sanctionMoney" jdbcType="INTEGER" />
+    <result column="state" property="state" jdbcType="VARCHAR" />
+    <result column="createTime" property="createTime" jdbcType="BIGINT" />
+    <result column="updateTime" property="updateTime" jdbcType="BIGINT" />
+    <result column="creator" property="creator" jdbcType="VARCHAR" />
+  </resultMap>
+  <resultMap id="ResultMapWithBLOBs" type="org.hrms.domain.EmployeeAttendance" extends="BaseResultMap" >
+    <result column="attendanceCause" property="attendanceCause" jdbcType="LONGVARCHAR" />
+  </resultMap>
+  <sql id="Base_Column_List" >
+    id, attendanceNumber, departmentName, employeeName, attendanceType, attendanceStartTime, 
+    attendanceEndTime, sanctionMoney, state, createTime, updateTime, creator
+  </sql>
+  <sql id="Blob_Column_List" >
+    attendanceCause
+  </sql>
+  <select id="selectByPrimaryKey" resultMap="ResultMapWithBLOBs" parameterType="java.lang.Integer" >
+    select 
+    <include refid="Base_Column_List" />
+    ,
+    <include refid="Blob_Column_List" />
+    from employee_attendance
+    where id = #{id,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
+    delete from employee_attendance
+    where id = #{id,jdbcType=INTEGER}
+  </delete>
+  <insert id="insert" parameterType="org.hrms.domain.EmployeeAttendance" >
+    insert into employee_attendance (id, attendanceNumber, departmentName, 
+      employeeName, attendanceType, attendanceStartTime, 
+      attendanceEndTime, sanctionMoney, state, 
+      createTime, updateTime, creator, 
+      attendanceCause)
+    values (#{id,jdbcType=INTEGER}, #{attendanceNumber,jdbcType=VARCHAR}, #{departmentName,jdbcType=VARCHAR}, 
+      #{employeeName,jdbcType=VARCHAR}, #{attendanceType,jdbcType=VARCHAR}, #{attendanceStartTime,jdbcType=BIGINT}, 
+      #{attendanceEndTime,jdbcType=BIGINT}, #{sanctionMoney,jdbcType=INTEGER}, #{state,jdbcType=VARCHAR}, 
+      #{createTime,jdbcType=BIGINT}, #{updateTime,jdbcType=BIGINT}, #{creator,jdbcType=VARCHAR}, 
+      #{attendanceCause,jdbcType=LONGVARCHAR})
+  </insert>
+  <insert id="insertSelective" parameterType="org.hrms.domain.EmployeeAttendance" >
+    insert into employee_attendance
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        id,
+      </if>
+      <if test="attendanceNumber != null" >
+        attendanceNumber,
+      </if>
+      <if test="departmentName != null" >
+        departmentName,
+      </if>
+      <if test="employeeName != null" >
+        employeeName,
+      </if>
+      <if test="attendanceType != null" >
+        attendanceType,
+      </if>
+      <if test="attendanceStartTime != null" >
+        attendanceStartTime,
+      </if>
+      <if test="attendanceEndTime != null" >
+        attendanceEndTime,
+      </if>
+      <if test="sanctionMoney != null" >
+        sanctionMoney,
+      </if>
+      <if test="state != null" >
+        state,
+      </if>
+      <if test="createTime != null" >
+        createTime,
+      </if>
+      <if test="updateTime != null" >
+        updateTime,
+      </if>
+      <if test="creator != null" >
+        creator,
+      </if>
+      <if test="attendanceCause != null" >
+        attendanceCause,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        #{id,jdbcType=INTEGER},
+      </if>
+      <if test="attendanceNumber != null" >
+        #{attendanceNumber,jdbcType=VARCHAR},
+      </if>
+      <if test="departmentName != null" >
+        #{departmentName,jdbcType=VARCHAR},
+      </if>
+      <if test="employeeName != null" >
+        #{employeeName,jdbcType=VARCHAR},
+      </if>
+      <if test="attendanceType != null" >
+        #{attendanceType,jdbcType=VARCHAR},
+      </if>
+      <if test="attendanceStartTime != null" >
+        #{attendanceStartTime,jdbcType=BIGINT},
+      </if>
+      <if test="attendanceEndTime != null" >
+        #{attendanceEndTime,jdbcType=BIGINT},
+      </if>
+      <if test="sanctionMoney != null" >
+        #{sanctionMoney,jdbcType=INTEGER},
+      </if>
+      <if test="state != null" >
+        #{state,jdbcType=VARCHAR},
+      </if>
+      <if test="createTime != null" >
+        #{createTime,jdbcType=BIGINT},
+      </if>
+      <if test="updateTime != null" >
+        #{updateTime,jdbcType=BIGINT},
+      </if>
+      <if test="creator != null" >
+        #{creator,jdbcType=VARCHAR},
+      </if>
+      <if test="attendanceCause != null" >
+        #{attendanceCause,jdbcType=LONGVARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="org.hrms.domain.EmployeeAttendance" >
+    update employee_attendance
+    <set >
+      <if test="attendanceNumber != null" >
+        attendanceNumber = #{attendanceNumber,jdbcType=VARCHAR},
+      </if>
+      <if test="departmentName != null" >
+        departmentName = #{departmentName,jdbcType=VARCHAR},
+      </if>
+      <if test="employeeName != null" >
+        employeeName = #{employeeName,jdbcType=VARCHAR},
+      </if>
+      <if test="attendanceType != null" >
+        attendanceType = #{attendanceType,jdbcType=VARCHAR},
+      </if>
+      <if test="attendanceStartTime != null" >
+        attendanceStartTime = #{attendanceStartTime,jdbcType=BIGINT},
+      </if>
+      <if test="attendanceEndTime != null" >
+        attendanceEndTime = #{attendanceEndTime,jdbcType=BIGINT},
+      </if>
+      <if test="sanctionMoney != null" >
+        sanctionMoney = #{sanctionMoney,jdbcType=INTEGER},
+      </if>
+      <if test="state != null" >
+        state = #{state,jdbcType=VARCHAR},
+      </if>
+      <if test="createTime != null" >
+        createTime = #{createTime,jdbcType=BIGINT},
+      </if>
+      <if test="updateTime != null" >
+        updateTime = #{updateTime,jdbcType=BIGINT},
+      </if>
+      <if test="creator != null" >
+        creator = #{creator,jdbcType=VARCHAR},
+      </if>
+      <if test="attendanceCause != null" >
+        attendanceCause = #{attendanceCause,jdbcType=LONGVARCHAR},
+      </if>
+    </set>
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKeyWithBLOBs" parameterType="org.hrms.domain.EmployeeAttendance" >
+    update employee_attendance
+    set attendanceNumber = #{attendanceNumber,jdbcType=VARCHAR},
+      departmentName = #{departmentName,jdbcType=VARCHAR},
+      employeeName = #{employeeName,jdbcType=VARCHAR},
+      attendanceType = #{attendanceType,jdbcType=VARCHAR},
+      attendanceStartTime = #{attendanceStartTime,jdbcType=BIGINT},
+      attendanceEndTime = #{attendanceEndTime,jdbcType=BIGINT},
+      sanctionMoney = #{sanctionMoney,jdbcType=INTEGER},
+      state = #{state,jdbcType=VARCHAR},
+      createTime = #{createTime,jdbcType=BIGINT},
+      updateTime = #{updateTime,jdbcType=BIGINT},
+      creator = #{creator,jdbcType=VARCHAR},
+      attendanceCause = #{attendanceCause,jdbcType=LONGVARCHAR}
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="org.hrms.domain.EmployeeAttendance" >
+    update employee_attendance
+    set attendanceNumber = #{attendanceNumber,jdbcType=VARCHAR},
+      departmentName = #{departmentName,jdbcType=VARCHAR},
+      employeeName = #{employeeName,jdbcType=VARCHAR},
+      attendanceType = #{attendanceType,jdbcType=VARCHAR},
+      attendanceStartTime = #{attendanceStartTime,jdbcType=BIGINT},
+      attendanceEndTime = #{attendanceEndTime,jdbcType=BIGINT},
+      sanctionMoney = #{sanctionMoney,jdbcType=INTEGER},
+      state = #{state,jdbcType=VARCHAR},
+      createTime = #{createTime,jdbcType=BIGINT},
+      updateTime = #{updateTime,jdbcType=BIGINT},
+      creator = #{creator,jdbcType=VARCHAR}
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+</mapper>

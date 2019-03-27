@@ -1,0 +1,235 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="org.hrms.storage.RecruitmentReadWrite" >
+  <resultMap id="BaseResultMap" type="org.hrms.domain.Recruitment" >
+    <id column="id" property="id" jdbcType="INTEGER" />
+    <result column="recruitmentDeparment" property="recruitmentDeparment" jdbcType="CHAR" />
+    <result column="recruitmentJob" property="recruitmentJob" jdbcType="VARCHAR" />
+    <result column="jobRequirements" property="jobRequirements" jdbcType="VARCHAR" />
+    <result column="jobContent" property="jobContent" jdbcType="VARCHAR" />
+    <result column="recruitmentNumber" property="recruitmentNumber" jdbcType="INTEGER" />
+    <result column="minimumEducation" property="minimumEducation" jdbcType="VARCHAR" />
+    <result column="recruitmentAgency" property="recruitmentAgency" jdbcType="VARCHAR" />
+    <result column="companyAddress" property="companyAddress" jdbcType="VARCHAR" />
+    <result column="workingProperty" property="workingProperty" jdbcType="VARCHAR" />
+    <result column="recruitmentState" property="recruitmentState" jdbcType="VARCHAR" />
+    <result column="state" property="state" jdbcType="VARCHAR" />
+    <result column="createTime" property="createTime" jdbcType="BIGINT" />
+    <result column="updateTime" property="updateTime" jdbcType="BIGINT" />
+    <result column="creator" property="creator" jdbcType="VARCHAR" />
+  </resultMap>
+  <sql id="Base_Column_List" >
+    id, recruitmentDeparment, recruitmentJob, jobRequirements, jobContent, recruitmentNumber, 
+    minimumEducation, recruitmentAgency, companyAddress, workingProperty, recruitmentState, 
+    state, createTime, updateTime, creator
+  </sql>
+  <insert id="insert" parameterType="org.hrms.domain.Recruitment" useGeneratedKeys="true" keyProperty="id">
+    insert into recruitment
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="recruitmentDeparment != null" >
+        recruitmentDeparment,
+      </if>
+      <if test="recruitmentJob != null" >
+        recruitmentJob,
+      </if>
+      <if test="jobRequirements != null" >
+        jobRequirements,
+      </if>
+      <if test="jobContent != null" >
+        jobContent,
+      </if>
+      <if test="recruitmentNumber != null" >
+        recruitmentNumber,
+      </if>
+      <if test="minimumEducation != null" >
+        minimumEducation,
+      </if>
+      <if test="recruitmentAgency != null" >
+        recruitmentAgency,
+      </if>
+      <if test="companyAddress != null" >
+        companyAddress,
+      </if>
+      <if test="workingProperty != null" >
+        workingProperty,
+      </if>
+      <if test="recruitmentState != null" >
+        recruitmentState,
+      </if>
+      <if test="state != null" >
+        state,
+      </if>
+      <if test="createTime != null" >
+        createTime,
+      </if>
+      <if test="updateTime != null" >
+        updateTime,
+      </if>
+      <if test="creator != null" >
+        creator,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="recruitmentDeparment != null" >
+        #{recruitmentDeparment,jdbcType=CHAR},
+      </if>
+      <if test="recruitmentJob != null" >
+        #{recruitmentJob,jdbcType=VARCHAR},
+      </if>
+      <if test="jobRequirements != null" >
+        #{jobRequirements,jdbcType=VARCHAR},
+      </if>
+      <if test="jobContent != null" >
+        #{jobContent,jdbcType=VARCHAR},
+      </if>
+      <if test="recruitmentNumber != null" >
+        #{recruitmentNumber,jdbcType=INTEGER},
+      </if>
+      <if test="minimumEducation != null" >
+        #{minimumEducation,jdbcType=VARCHAR},
+      </if>
+      <if test="recruitmentAgency != null" >
+        #{recruitmentAgency,jdbcType=VARCHAR},
+      </if>
+      <if test="companyAddress != null" >
+        #{companyAddress,jdbcType=VARCHAR},
+      </if>
+      <if test="workingProperty != null" >
+        #{workingProperty,jdbcType=VARCHAR},
+      </if>
+      <if test="recruitmentState != null" >
+        #{recruitmentState,jdbcType=VARCHAR},
+      </if>
+      <if test="state != null" >
+        #{state,jdbcType=VARCHAR},
+      </if>
+      <if test="createTime != null" >
+        #{createTime,jdbcType=BIGINT},
+      </if>
+      <if test="updateTime != null" >
+        #{updateTime,jdbcType=BIGINT},
+      </if>
+      <if test="creator != null" >
+        #{creator,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <insert id="batchInsert" useGeneratedKeys="true" keyProperty="id">
+    insert into recruitment (recruitmentDeparment, recruitmentJob, 
+      jobRequirements, jobContent, recruitmentNumber, 
+      minimumEducation, recruitmentAgency, companyAddress, 
+      workingProperty, recruitmentState, state, 
+      createTime, updateTime, creator
+      )
+    values
+		<foreach collection="list" item="item" separator=",">
+		(#{recruitmentDeparment,jdbcType=CHAR}, #{recruitmentJob,jdbcType=VARCHAR}, 
+      #{jobRequirements,jdbcType=VARCHAR}, #{jobContent,jdbcType=VARCHAR}, #{recruitmentNumber,jdbcType=INTEGER}, 
+      #{minimumEducation,jdbcType=VARCHAR}, #{recruitmentAgency,jdbcType=VARCHAR}, #{companyAddress,jdbcType=VARCHAR}, 
+      #{workingProperty,jdbcType=VARCHAR}, #{recruitmentState,jdbcType=VARCHAR}, #{state,jdbcType=VARCHAR}, 
+      #{createTime,jdbcType=BIGINT}, #{updateTime,jdbcType=BIGINT}, #{creator,jdbcType=VARCHAR}
+      )
+		</foreach>
+  </insert>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
+    delete from recruitment where id = #{id,jdbcType=INTEGER}
+  </delete>
+  <delete id="deleteInByPrimaryKey">
+  	delete from recruitment where id in (
+  	<foreach collection="list" item="item" separator=",">
+  	#{item}
+  	</foreach>
+  	)
+  </delete>
+  <delete id="deleteByAttribute" parameterType="org.hrms.common.search.Attribute" >
+    delete from recruitment where ${name} = #{value}
+  </delete>
+  <update id="updateByPrimaryKey" parameterType="org.hrms.domain.Recruitment" >
+    update recruitment
+    <set >
+      <if test="recruitmentDeparment != null" >
+        recruitmentDeparment = #{recruitmentDeparment,jdbcType=CHAR},
+      </if>
+      <if test="recruitmentJob != null" >
+        recruitmentJob = #{recruitmentJob,jdbcType=VARCHAR},
+      </if>
+      <if test="jobRequirements != null" >
+        jobRequirements = #{jobRequirements,jdbcType=VARCHAR},
+      </if>
+      <if test="jobContent != null" >
+        jobContent = #{jobContent,jdbcType=VARCHAR},
+      </if>
+      <if test="recruitmentNumber != null" >
+        recruitmentNumber = #{recruitmentNumber,jdbcType=INTEGER},
+      </if>
+      <if test="minimumEducation != null" >
+        minimumEducation = #{minimumEducation,jdbcType=VARCHAR},
+      </if>
+      <if test="recruitmentAgency != null" >
+        recruitmentAgency = #{recruitmentAgency,jdbcType=VARCHAR},
+      </if>
+      <if test="companyAddress != null" >
+        companyAddress = #{companyAddress,jdbcType=VARCHAR},
+      </if>
+      <if test="workingProperty != null" >
+        workingProperty = #{workingProperty,jdbcType=VARCHAR},
+      </if>
+      <if test="recruitmentState != null" >
+        recruitmentState = #{recruitmentState,jdbcType=VARCHAR},
+      </if>
+      <if test="state != null" >
+        state = #{state,jdbcType=VARCHAR},
+      </if>
+      <if test="createTime != null" >
+        createTime = #{createTime,jdbcType=BIGINT},
+      </if>
+      <if test="updateTime != null" >
+        updateTime = #{updateTime,jdbcType=BIGINT},
+      </if>
+      <if test="creator != null" >
+        creator = #{creator,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
+    select 
+    <include refid="Base_Column_List" />
+    from recruitment
+    where id = #{id,jdbcType=INTEGER}
+  </select>
+  <select id="countByAttribute" resultType="java.lang.Integer" parameterType="org.hrms.common.search.Attribute" >
+    select count(id) from recruitment 
+          <where>
+	  	<if test="value != null">
+	  		${name} 
+	  		<choose>
+	  			<when test="likePattern == true">
+	  				like
+	  			</when>
+	  			<otherwise>
+	  			=
+	  			</otherwise>
+	  		</choose>
+	  		  #{value}
+	  	</if>
+	  </where>
+  </select>
+  <select id="selectByAttribute" resultMap="BaseResultMap" parameterType="org.hrms.common.search.Attribute" >
+    select <include refid="Base_Column_List" /> from recruitment where ${name} = #{value}
+  </select>
+  <select id="selectByAttributes" resultMap="BaseResultMap" parameterType="org.hrms.common.search.Attribute" >
+    select <include refid="Base_Column_List" /> from recruitment where ${name} = #{value}
+  </select>
+  <select id="pageingSearch" 
+  parameterType="org.hrms.common.search.Pageing" 
+  resultMap="BaseResultMap">
+  select * from recruitment 
+  <where>
+  	<if test="keywords.value != null">
+  		recruitmentJob like #{keywords.value}
+  	</if>
+  </where>
+  limit #{startIndex},#{pageSize}
+  </select>
+</mapper>

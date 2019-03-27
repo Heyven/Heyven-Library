@@ -1,0 +1,132 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="org.hrms.mapper.AuthorityMapper" >
+  <resultMap id="BaseResultMap" type="org.hrms.domain.Authority" >
+    <id column="id" property="id" jdbcType="INTEGER" />
+    <result column="authorityName" property="authorityName" jdbcType="VARCHAR" />
+    <result column="authorityCode" property="authorityCode" jdbcType="VARCHAR" />
+    <result column="authorityUrl" property="authorityUrl" jdbcType="VARCHAR" />
+    <result column="state" property="state" jdbcType="VARCHAR" />
+    <result column="createTime" property="createTime" jdbcType="BIGINT" />
+    <result column="updateTime" property="updateTime" jdbcType="BIGINT" />
+    <result column="creator" property="creator" jdbcType="VARCHAR" />
+  </resultMap>
+  <sql id="Base_Column_List" >
+    id, authorityName, authorityCode, authorityUrl, state, createTime, updateTime, creator
+  </sql>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
+    select 
+    <include refid="Base_Column_List" />
+    from authority
+    where id = #{id,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
+    delete from authority
+    where id = #{id,jdbcType=INTEGER}
+  </delete>
+  <insert id="insert" parameterType="org.hrms.domain.Authority" >
+    insert into authority (id, authorityName, authorityCode, 
+      authorityUrl, state, createTime, 
+      updateTime, creator)
+    values (#{id,jdbcType=INTEGER}, #{authorityName,jdbcType=VARCHAR}, #{authorityCode,jdbcType=VARCHAR}, 
+      #{authorityUrl,jdbcType=VARCHAR}, #{state,jdbcType=VARCHAR}, #{createTime,jdbcType=BIGINT}, 
+      #{updateTime,jdbcType=BIGINT}, #{creator,jdbcType=VARCHAR})
+  </insert>
+  <insert id="insertSelective" parameterType="org.hrms.domain.Authority" >
+    insert into authority
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        id,
+      </if>
+      <if test="authorityName != null" >
+        authorityName,
+      </if>
+      <if test="authorityCode != null" >
+        authorityCode,
+      </if>
+      <if test="authorityUrl != null" >
+        authorityUrl,
+      </if>
+      <if test="state != null" >
+        state,
+      </if>
+      <if test="createTime != null" >
+        createTime,
+      </if>
+      <if test="updateTime != null" >
+        updateTime,
+      </if>
+      <if test="creator != null" >
+        creator,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        #{id,jdbcType=INTEGER},
+      </if>
+      <if test="authorityName != null" >
+        #{authorityName,jdbcType=VARCHAR},
+      </if>
+      <if test="authorityCode != null" >
+        #{authorityCode,jdbcType=VARCHAR},
+      </if>
+      <if test="authorityUrl != null" >
+        #{authorityUrl,jdbcType=VARCHAR},
+      </if>
+      <if test="state != null" >
+        #{state,jdbcType=VARCHAR},
+      </if>
+      <if test="createTime != null" >
+        #{createTime,jdbcType=BIGINT},
+      </if>
+      <if test="updateTime != null" >
+        #{updateTime,jdbcType=BIGINT},
+      </if>
+      <if test="creator != null" >
+        #{creator,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="org.hrms.domain.Authority" >
+    update authority
+    <set >
+      <if test="authorityName != null" >
+        authorityName = #{authorityName,jdbcType=VARCHAR},
+      </if>
+      <if test="authorityCode != null" >
+        authorityCode = #{authorityCode,jdbcType=VARCHAR},
+      </if>
+      <if test="authorityUrl != null" >
+        authorityUrl = #{authorityUrl,jdbcType=VARCHAR},
+      </if>
+      <if test="state != null" >
+        state = #{state,jdbcType=VARCHAR},
+      </if>
+      <if test="createTime != null" >
+        createTime = #{createTime,jdbcType=BIGINT},
+      </if>
+      <if test="updateTime != null" >
+        updateTime = #{updateTime,jdbcType=BIGINT},
+      </if>
+      <if test="creator != null" >
+        creator = #{creator,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="org.hrms.domain.Authority" >
+    update authority
+    set authorityName = #{authorityName,jdbcType=VARCHAR},
+      authorityCode = #{authorityCode,jdbcType=VARCHAR},
+      authorityUrl = #{authorityUrl,jdbcType=VARCHAR},
+      state = #{state,jdbcType=VARCHAR},
+      createTime = #{createTime,jdbcType=BIGINT},
+      updateTime = #{updateTime,jdbcType=BIGINT},
+      creator = #{creator,jdbcType=VARCHAR}
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+  
+  <select id="selectAccountAuthorityByAccountId" resultMap="BaseResultMap">
+  	select a.* from account_authority aa inner join authority a on aa.authorityId = a.id where aa.accountId=#{id}
+  </select>
+</mapper>

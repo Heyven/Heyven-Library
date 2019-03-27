@@ -1,0 +1,233 @@
+﻿<!DOCTYPE html>
+<html lang="zh-cn">
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
+    <meta name="renderer" content="webkit">
+    <title>更新</title>  
+    <link rel="stylesheet" href="css/pintuer.css">
+    <link rel="stylesheet" href="css/admin.css">
+    <style type="text/css">
+#authDiv{
+    }
+
+    #authDiv ul{
+        margin:0px;
+        padding:0px;
+        list-style-type:none;
+        vertical-align:middle  ;
+    }
+
+    #authDiv li{
+        float:left;
+        display:block;
+
+        width:100px;  
+        height:20px;
+        line-height:20px;
+
+        font-size:14px;   
+        font-weight:bold;           
+        color:#666666;
+
+        text-decoration:none;
+        text-align:left;  
+
+        background:#ffffff;
+    }
+</style>
+    <script src="js/jquery.js"></script>   
+    <script src="js/pintuer.js"></script>
+</head>
+<body style="background-color:#f2f9fd;">
+<div class="header bg-main">
+  <div class="logo margin-big-left fadein-top">
+    <h1><img src="images/y.jpg" class="radius-circle rotate-hover" height="50" alt="" />人力资源管理系统</h1>
+  </div>
+  <div class="head-l">
+  <a class="button button-little bg-green" href="#" target="_blank"><span class="icon-home"></span> 重新登录</a> &nbsp;&nbsp;
+  <a href="##" class="button button-little bg-blue"><span class="icon-wrench"></span> 清空缓存</a> &nbsp;&nbsp;
+  <a class="button button-little bg-red" href="#"><span class="icon-power-off"></span> 退出</a> </div>
+</div>
+<div class="leftnav">
+  <div class="leftnav-title"><strong><span class="icon-list">菜单</strong></div>
+  <h2><span class="icon-user"></span>安全管理</h2>
+  <ul style="display:block">
+    <li><a href="#" target="right"><span class="icon-caret-right"></span>修改密码</a></li>
+  </ul>   
+  <h2><span class="icon-pencil-square-o"></span>系统管理</h2>
+  <ul>
+    <li><a href="#" target="right"><span class="icon-caret-right"></span>管理员管理</a></li>
+    <li><a href="#" target="right"><span class="icon-caret-right"></span>权限管理</a></li>
+  </ul>
+  <h2><span class="icon-pencil-square-o"></span>员工管理</h2>
+  <ul>
+    <li><a href="#" target="right"><span class="icon-caret-right"></span>基本信息管理</a></li>
+    <li><a href="#" target="right"><span class="icon-caret-right"></span>档案管理</a></li>
+    <li><a href="#" target="right"><span class="icon-caret-right"></span>合同管理</a></li>
+  </ul>
+  
+  <h2><span class="icon-pencil-square-o"></span>人事管理</h2>
+  <ul>
+    <li><a href="#" target="right"><span class="icon-caret-right"></span>人事调动</a></li>
+    <li><a href="#" target="right"><span class="icon-caret-right"></span>人事调动记录</a></li>
+  </ul>
+  
+  <h2><span class="icon-pencil-square-o"></span>培训管理</h2>
+  <ul>
+    <li><a href="#" target="right"><span class="icon-caret-right"></span>培训信息</a></li>
+  </ul>
+  <h2><span class="icon-pencil-square-o"></span>考勤管理</h2>
+  <ul>
+    <li><a href="#" target="right"><span class="icon-caret-right"></span>考勤记录</a></li>
+    <li><a href="#" target="right"><span class="icon-caret-right"></span>薪酬记录</a></li>
+  </ul> 
+  
+  <h2><span class="icon-pencil-square-o"></span>招聘管理</h2>
+  <ul>
+    <li><a href="#" target="right"><span class="icon-caret-right"></span>招聘记录</a></li>
+    <li><a href="#" target="right"><span class="icon-caret-right"></span>应聘信息</a></li>
+  </ul>    
+</div>
+<script type="text/javascript">
+$(function(){
+  $(".leftnav h2").click(function(){
+	  $(this).next().slideToggle(200);	
+	  $(this).toggleClass("on"); 
+  })
+  $(".leftnav ul li a").click(function(){
+	    $("#a_leader_txt").text($(this).text());
+  		$(".leftnav ul li a").removeClass("on");
+		$(this).addClass("on");
+  })
+});
+</script>
+<ul class="bread">
+  <li><a href="#" target="right" class="icon-home"> 首页</a></li>
+  <li><a href="##" id="a_leader_txt"></a></li>
+  <li>
+  <b>当前语言：</b><span style="color:red;">中文</span>
+  &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+  切换：
+  <a href="#">中文</a> &nbsp;&nbsp;
+  <a href="#">English</a>
+  </li>
+</ul>
+<div class="admin">
+  
+
+<form method="post" action="" id="listform">
+  <div class="panel admin-panel">
+    <div class="panel-head"><strong class="icon-reorder"> 管理员列表</strong> <a href="#" style="float:right; display:none;">添加管理员</a></div>
+    <div class="padding border-bottom">
+      <ul class="search" style="padding-left:10px;">
+        <li> <a class="button border-main icon-plus-square-o" href="#"> 添加管理员</a> </li>
+       
+        <li>
+          <input type="text" placeholder="请输入搜索关键字" name="keywords" value="" class="input" style="width:250px; line-height:17px;display:inline-block" />
+          <a href="javascript:void(0)" class="button border-main icon-search" onClick="changesearch(this);" > 搜索</a></li>
+      </ul>
+    </div>
+    <table class="table table-hover text-center">
+      <tr>
+        <th width="100" style="text-align:left; padding-left:20px;">ID</th>
+        <th>头像</th>
+        <th>账号</th>
+        <th width="10%">更新时间</th>
+        <th width="310">操作</th>
+      </tr>
+        <tr>
+          <td style="text-align:left; padding-left:20px;">
+          <input type="checkbox" name="id[]" value="1" />
+           	1
+           </td>
+          
+          <td width="10%">
+          <img src="" alt="" width="70" height="50" />
+          </td>
+          
+          <td>account</td>
+          <td>updateTime</td>
+          <td>
+          <div class="button-group"> 
+          <a class="button border-main" href="#"></span> 修改</a>
+	           <a class="button border-red" href="#"/><span class="icon-trash-o"></span> 删除</a> 
+          </div></td>
+        </tr>
+      <tr>
+                <td><input type="checkbox" id="checkall"/>
+          全选 </td>
+        <td colspan="7" style="text-align:left;padding-left:20px;"><a href="javascript:void(0)" class="button border-red icon-trash-o" style="padding:5px 15px;" onClick="DelSelect(this)"> 删除</a></td>
+      </tr>
+      <tr>
+                <td colspan="8">
+        <div class="pagelist">
+                    总页数: 10&nbsp;&nbsp;
+                    当前第 1 页&nbsp;&nbsp;
+        <a href="#">首页</a>  
+        <a href="#">上一页</a> 
+        <a href="#">下一页</a>
+        <a href="#">尾页</a> 
+        </div>
+        </td>
+      </tr>
+      </s:if>
+    	<s:else>
+      	<tr>
+      		<td colspan="7">无默认数据,请搜索!</td>
+      	</tr>
+      	</s:else>
+    </table>
+  </div>
+</form>
+<script type="text/javascript">
+
+//搜索
+function changesearch(th){	
+	var keywords = $("input[name='keywords']").val();
+	th.href="#";	
+}
+
+//单个删除
+function del(id,mid,iscid){
+	if(confirm("您确定要删除吗?")){
+		
+	}
+}
+
+//全选
+$("#checkall").click(function(){ 
+  $("input[name='id[]']").each(function(){
+	  if (this.checked) {
+		  this.checked = false;
+	  }
+	  else {
+		  this.checked = true;
+	  }
+  });
+})
+
+//批量删除
+function DelSelect(){
+	var Checkbox=false;
+	 $("input[name='id[]']").each(function(){
+	  if (this.checked==true) {		
+		Checkbox=true;	
+	  }
+	});
+	if (Checkbox){
+		var t=confirm("您确认要删除选中的内容吗？");
+		if (t==false) return false;		
+		$("#listform").submit();		
+	}
+	else{
+		alert("请选择您要删除的内容!");
+		return false;
+	}
+}
+
+</script>
+	</div>
+</body>
+</html>

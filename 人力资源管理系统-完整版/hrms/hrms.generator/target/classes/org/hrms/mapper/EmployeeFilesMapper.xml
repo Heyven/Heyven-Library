@@ -1,0 +1,177 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="org.hrms.mapper.EmployeeFilesMapper" >
+  <resultMap id="BaseResultMap" type="org.hrms.domain.EmployeeFiles" >
+    <id column="id" property="id" jdbcType="INTEGER" />
+    <result column="archivesNumber" property="archivesNumber" jdbcType="VARCHAR" />
+    <result column="archivesName" property="archivesName" jdbcType="VARCHAR" />
+    <result column="archivesContent" property="archivesContent" jdbcType="VARCHAR" />
+    <result column="archivesRemarks" property="archivesRemarks" jdbcType="VARCHAR" />
+    <result column="archivesSummary" property="archivesSummary" jdbcType="VARCHAR" />
+    <result column="employeeId" property="employeeId" jdbcType="INTEGER" />
+    <result column="employeeName" property="employeeName" jdbcType="VARCHAR" />
+    <result column="state" property="state" jdbcType="VARCHAR" />
+    <result column="createTime" property="createTime" jdbcType="BIGINT" />
+    <result column="updateTime" property="updateTime" jdbcType="BIGINT" />
+    <result column="creator" property="creator" jdbcType="VARCHAR" />
+  </resultMap>
+  <sql id="Base_Column_List" >
+    id, archivesNumber, archivesName, archivesContent, archivesRemarks, archivesSummary, 
+    employeeId, employeeName, state, createTime, updateTime, creator
+  </sql>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
+    select 
+    <include refid="Base_Column_List" />
+    from employee_files
+    where id = #{id,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
+    delete from employee_files
+    where id = #{id,jdbcType=INTEGER}
+  </delete>
+  <insert id="insert" parameterType="org.hrms.domain.EmployeeFiles" >
+    insert into employee_files (id, archivesNumber, archivesName, 
+      archivesContent, archivesRemarks, archivesSummary, 
+      employeeId, employeeName, state, 
+      createTime, updateTime, creator
+      )
+    values (#{id,jdbcType=INTEGER}, #{archivesNumber,jdbcType=VARCHAR}, #{archivesName,jdbcType=VARCHAR}, 
+      #{archivesContent,jdbcType=VARCHAR}, #{archivesRemarks,jdbcType=VARCHAR}, #{archivesSummary,jdbcType=VARCHAR}, 
+      #{employeeId,jdbcType=INTEGER}, #{employeeName,jdbcType=VARCHAR}, #{state,jdbcType=VARCHAR}, 
+      #{createTime,jdbcType=BIGINT}, #{updateTime,jdbcType=BIGINT}, #{creator,jdbcType=VARCHAR}
+      )
+  </insert>
+  <insert id="insertSelective" parameterType="org.hrms.domain.EmployeeFiles" >
+    insert into employee_files
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        id,
+      </if>
+      <if test="archivesNumber != null" >
+        archivesNumber,
+      </if>
+      <if test="archivesName != null" >
+        archivesName,
+      </if>
+      <if test="archivesContent != null" >
+        archivesContent,
+      </if>
+      <if test="archivesRemarks != null" >
+        archivesRemarks,
+      </if>
+      <if test="archivesSummary != null" >
+        archivesSummary,
+      </if>
+      <if test="employeeId != null" >
+        employeeId,
+      </if>
+      <if test="employeeName != null" >
+        employeeName,
+      </if>
+      <if test="state != null" >
+        state,
+      </if>
+      <if test="createTime != null" >
+        createTime,
+      </if>
+      <if test="updateTime != null" >
+        updateTime,
+      </if>
+      <if test="creator != null" >
+        creator,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        #{id,jdbcType=INTEGER},
+      </if>
+      <if test="archivesNumber != null" >
+        #{archivesNumber,jdbcType=VARCHAR},
+      </if>
+      <if test="archivesName != null" >
+        #{archivesName,jdbcType=VARCHAR},
+      </if>
+      <if test="archivesContent != null" >
+        #{archivesContent,jdbcType=VARCHAR},
+      </if>
+      <if test="archivesRemarks != null" >
+        #{archivesRemarks,jdbcType=VARCHAR},
+      </if>
+      <if test="archivesSummary != null" >
+        #{archivesSummary,jdbcType=VARCHAR},
+      </if>
+      <if test="employeeId != null" >
+        #{employeeId,jdbcType=INTEGER},
+      </if>
+      <if test="employeeName != null" >
+        #{employeeName,jdbcType=VARCHAR},
+      </if>
+      <if test="state != null" >
+        #{state,jdbcType=VARCHAR},
+      </if>
+      <if test="createTime != null" >
+        #{createTime,jdbcType=BIGINT},
+      </if>
+      <if test="updateTime != null" >
+        #{updateTime,jdbcType=BIGINT},
+      </if>
+      <if test="creator != null" >
+        #{creator,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="org.hrms.domain.EmployeeFiles" >
+    update employee_files
+    <set >
+      <if test="archivesNumber != null" >
+        archivesNumber = #{archivesNumber,jdbcType=VARCHAR},
+      </if>
+      <if test="archivesName != null" >
+        archivesName = #{archivesName,jdbcType=VARCHAR},
+      </if>
+      <if test="archivesContent != null" >
+        archivesContent = #{archivesContent,jdbcType=VARCHAR},
+      </if>
+      <if test="archivesRemarks != null" >
+        archivesRemarks = #{archivesRemarks,jdbcType=VARCHAR},
+      </if>
+      <if test="archivesSummary != null" >
+        archivesSummary = #{archivesSummary,jdbcType=VARCHAR},
+      </if>
+      <if test="employeeId != null" >
+        employeeId = #{employeeId,jdbcType=INTEGER},
+      </if>
+      <if test="employeeName != null" >
+        employeeName = #{employeeName,jdbcType=VARCHAR},
+      </if>
+      <if test="state != null" >
+        state = #{state,jdbcType=VARCHAR},
+      </if>
+      <if test="createTime != null" >
+        createTime = #{createTime,jdbcType=BIGINT},
+      </if>
+      <if test="updateTime != null" >
+        updateTime = #{updateTime,jdbcType=BIGINT},
+      </if>
+      <if test="creator != null" >
+        creator = #{creator,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="org.hrms.domain.EmployeeFiles" >
+    update employee_files
+    set archivesNumber = #{archivesNumber,jdbcType=VARCHAR},
+      archivesName = #{archivesName,jdbcType=VARCHAR},
+      archivesContent = #{archivesContent,jdbcType=VARCHAR},
+      archivesRemarks = #{archivesRemarks,jdbcType=VARCHAR},
+      archivesSummary = #{archivesSummary,jdbcType=VARCHAR},
+      employeeId = #{employeeId,jdbcType=INTEGER},
+      employeeName = #{employeeName,jdbcType=VARCHAR},
+      state = #{state,jdbcType=VARCHAR},
+      createTime = #{createTime,jdbcType=BIGINT},
+      updateTime = #{updateTime,jdbcType=BIGINT},
+      creator = #{creator,jdbcType=VARCHAR}
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+</mapper>
